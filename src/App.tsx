@@ -1,5 +1,8 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { CookiesProvider } from "react-cookie";
+
 import MainLayout from "./layouts/layout";
+import MainPage from "./pages";
 
 const routes = createBrowserRouter([
   {
@@ -8,7 +11,7 @@ const routes = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <>main route</>,
+        element: <MainPage />,
       },
     ],
   },
@@ -23,7 +26,11 @@ const routes = createBrowserRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={routes} />;
+  return (
+    <CookiesProvider>
+      <RouterProvider router={routes} />
+    </CookiesProvider>
+  );
 }
 
 export default App;
