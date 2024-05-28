@@ -1,37 +1,11 @@
-import { Outlet, useNavigate } from "react-router-dom";
-import { useCookies } from "react-cookie";
-import { useEffect, useState } from "react";
-import { verifyToken } from "../services/auth.service";
+interface Props {
+  children: React.ReactNode;
+}
 
-function MainLayout() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [cookies] = useCookies();
-  const navigate = useNavigate();
-
-  // Auth guard
-  useEffect(() => {
-    const verifyAccess = async () => {
-      const res = await verifyToken();
-
-      if (!res || !cookies.token) {
-        setIsAuthenticated(false);
-        navigate("/login");
-        return;
-      }
-
-      setIsAuthenticated(true);
-    };
-
-    verifyAccess();
-  }, []);
-
-  if (!isAuthenticated) return;
-
+function MainLayout({ children }: Props) {
   return (
     <div className="min-h-screen">
-      <main className="container m-auto h-full">
-        <Outlet />
-      </main>
+      <main className="container m-auto h-full">{children}</main>
     </div>
   );
 }

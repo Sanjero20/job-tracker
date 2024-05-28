@@ -1,13 +1,15 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { CookiesProvider } from "react-cookie";
 
-import MainLayout from "./layouts/layout";
-import MainPage from "./pages";
+import MainPage from "@/pages";
+import LoginPage from "@/pages/login";
+import UnprotectedPage from "./layouts/unprotected";
+import ProtectedPage from "./layouts/protected";
 
 const routes = createBrowserRouter([
   {
     path: "/",
-    element: <MainLayout />,
+    element: <ProtectedPage />,
     children: [
       {
         index: true,
@@ -16,12 +18,12 @@ const routes = createBrowserRouter([
     ],
   },
   {
-    path: "/login",
-    element: <>Login page</>,
-  },
-  {
-    path: "/register",
-    element: <>Register page</>,
+    path: "/",
+    element: <UnprotectedPage />,
+    children: [
+      { path: "/login", element: <LoginPage /> },
+      { path: "/register", element: <>Register page</> },
+    ],
   },
 ]);
 
