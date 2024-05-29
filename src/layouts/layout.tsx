@@ -3,11 +3,7 @@ interface Props {
 }
 
 function MainLayout({ children }: Props) {
-  return (
-    <div className="min-h-screen">
-      <main className="container m-auto h-full">{children}</main>
-    </div>
-  );
+  return <main className="bg-light flex min-h-screen">{children}</main>;
 }
 
 export default MainLayout;

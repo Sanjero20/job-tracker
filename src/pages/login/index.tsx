@@ -1,13 +1,16 @@
 import { FormEvent, useState } from "react";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
-
 import { loginAccount } from "@/services/auth.service";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const [, setCookie] = useCookies();
   const navigate = useNavigate();
@@ -15,41 +18,53 @@ function LoginPage() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
+    setIsLoading(true);
     const { token, error } = await loginAccount(email, password);
-
-    if (error) {
-      setError(error);
-      return;
-    }
+    setIsLoading(false);
 
     if (token) {
       setCookie("token", token);
       navigate("/");
+    } else {
+      setError(error);
     }
   };
 
   return (
-    <>
-      <form onSubmit={handleSubmit} className="flex w-40 flex-col gap-2">
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Email"
-        />
+    <div className="flex flex-1 flex-col items-center justify-center">
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-center">Welcome Back</CardTitle>
+        </CardHeader>
 
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+        <CardContent>
+          <form
+            onSubmit={handleSubmit}
+            className="flex w-[350px] flex-col gap-2 bg-white"
+          >
+            <Input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Email"
+            />
 
-        {error && <p>{error}</p>}
+            <Input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Password"
+            />
 
-        <button type="submit">Login</button>
-      </form>
-    </>
+            {error && <p className="text-error text-sm">* {error}</p>}
+
+            <Button type="submit" disabled={isLoading}>
+              {isLoading ? "Loading..." : "Login"}
+            </Button>
+          </form>
+        </CardContent>
+      </Card>
+    </div>
   );
 }
-
 export default LoginPage;
