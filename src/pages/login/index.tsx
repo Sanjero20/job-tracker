@@ -31,7 +31,7 @@ function LoginPage() {
   };
 
   return (
-    <div className="flex flex-1 flex-col items-center justify-center">
+    <div className="flex flex-1 flex-col items-center justify-center gap-2">
       <Card>
         <CardHeader>
           <CardTitle className="text-center">Welcome Back</CardTitle>
@@ -56,7 +56,7 @@ function LoginPage() {
               placeholder="Password"
             />
 
-            {error && <p className="text-error text-sm">* {error}</p>}
+            {error && <p className="text-sm text-error">* {error}</p>}
 
             <Button type="submit" disabled={isLoading}>
               {isLoading ? "Loading..." : "Login"}
@@ -64,6 +64,16 @@ function LoginPage() {
           </form>
         </CardContent>
       </Card>
+
+      <p>
+        Don't have an account?{" "}
+        <a
+          onClick={() => navigate("/register")}
+          className="cursor-pointer underline"
+        >
+          Create one
+        </a>
+      </p>
     </div>
   );
 }
