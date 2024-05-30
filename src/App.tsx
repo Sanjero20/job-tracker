@@ -5,6 +5,7 @@ import MainPage from "@/pages";
 import LoginPage from "@/pages/login";
 import UnprotectedPage from "./layouts/unprotected";
 import ProtectedPage from "./layouts/protected";
+import RegisterPage from "./pages/register";
 
 const routes = createBrowserRouter([
   {
@@ -22,7 +23,7 @@ const routes = createBrowserRouter([
     element: <UnprotectedPage />,
     children: [
       { path: "/login", element: <LoginPage /> },
-      { path: "/register", element: <>Register page</> },
+      { path: "/register", element: <RegisterPage /> },
     ],
   },
 ]);
