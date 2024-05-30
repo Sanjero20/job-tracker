@@ -1,14 +1,17 @@
 import { FormEvent, useState } from "react";
-import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
-import { loginAccount } from "@/services/auth.service";
+import { useCookies } from "react-cookie";
+
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import FormContainer from "@/components/form-container";
+
+import { loginAccount } from "@/services/auth.service";
 
 function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -32,38 +35,34 @@ function LoginPage() {
 
   return (
     <div className="flex flex-1 flex-col items-center justify-center gap-2">
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-center">Welcome Back</CardTitle>
-        </CardHeader>
+      <FormContainer header="Welcome Back">
+        <form
+          onSubmit={handleSubmit}
+          className="flex w-[350px] flex-col gap-2 bg-white"
+        >
+          <Input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Email"
+            required
+          />
 
-        <CardContent>
-          <form
-            onSubmit={handleSubmit}
-            className="flex w-[350px] flex-col gap-2 bg-white"
-          >
-            <Input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Email"
-            />
+          <Input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Password"
+            required
+          />
 
-            <Input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Password"
-            />
+          {error && <p className="text-sm text-error">* {error}</p>}
 
-            {error && <p className="text-sm text-error">* {error}</p>}
-
-            <Button type="submit" disabled={isLoading}>
-              {isLoading ? "Loading..." : "Login"}
-            </Button>
-          </form>
-        </CardContent>
-      </Card>
+          <Button type="submit" disabled={isLoading}>
+            {isLoading ? "Loading..." : "Login"}
+          </Button>
+        </form>
+      </FormContainer>
 
       <p>
         Don't have an account?{" "}
