@@ -1,37 +1,17 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { RouterProvider } from "react-router-dom";
 import { CookiesProvider } from "react-cookie";
+import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 
-import MainPage from "@/pages";
-import LoginPage from "@/pages/login";
-import UnprotectedPage from "./layouts/unprotected";
-import ProtectedPage from "./layouts/protected";
-import RegisterPage from "./pages/register";
+import { routes } from "./routes";
 
-const routes = createBrowserRouter([
-  {
-    path: "/",
-    element: <ProtectedPage />,
-    children: [
-      {
-        index: true,
-        element: <MainPage />,
-      },
-    ],
-  },
-  {
-    path: "/",
-    element: <UnprotectedPage />,
-    children: [
-      { path: "/login", element: <LoginPage /> },
-      { path: "/register", element: <RegisterPage /> },
-    ],
-  },
-]);
+const queryClient = new QueryClient();
 
 function App() {
   return (
     <CookiesProvider>
-      <RouterProvider router={routes} />
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={routes} />
+      </QueryClientProvider>
     </CookiesProvider>
   );
 }
