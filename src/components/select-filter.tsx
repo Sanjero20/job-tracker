@@ -7,17 +7,12 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-const options = [
-  "Submitted",
-  "In progress",
-  "Under Review",
-  "Interviewed",
-  "Rejected",
-  "Withdrawn",
-  "Offered",
-];
+interface Props {
+  title: string;
+  options: string[];
+}
 
-function SelectStatus() {
+function SelectFilter({ title, options }: Props) {
   const [status, setStatus] = useState("");
 
   const handleSelect = (value: string) => {
@@ -28,7 +23,7 @@ function SelectStatus() {
   return (
     <Select value={status} onValueChange={handleSelect}>
       <SelectTrigger className="w-[180px]">
-        <SelectValue placeholder="By Status" />
+        <SelectValue placeholder={title} />
       </SelectTrigger>
 
       <SelectContent>
@@ -48,4 +43,4 @@ function SelectStatus() {
   );
 }
 
-export default SelectStatus;
+export default SelectFilter;

@@ -1,12 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 
 import LogoutButton from "@/components/logout-btn";
-import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/table/data-table";
 import { columns } from "@/components/table/columns";
+import SelectFilter from "@/components/select-filter";
+import AddApplcation from "@/components/modals/add-application";
 
 import { getApplications } from "@/services/applications.service";
-import SelectStatus from "@/components/form/select-status";
 
 function MainPage() {
   const { data } = useQuery({
@@ -24,8 +24,9 @@ function MainPage() {
 
       {/* Filters  */}
       <div className="flex gap-4">
-        <Button> Add Application</Button>
-        <SelectStatus />
+        <AddApplcation />
+        <SelectFilter title="Status" options={statusOptions} />
+        <SelectFilter title="Setup" options={setupOptions} />
       </div>
 
       {/* Table */}

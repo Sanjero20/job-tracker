@@ -92,16 +92,16 @@ function ApplicationForm() {
 
       <fieldset className="flex gap-2">
         <Input
-          name="job_link"
-          value={values.job_link}
-          onChange={handleChange}
-          placeholder="job link"
-        />
-        <Input
           name="job_site"
           value={values.job_site}
           onChange={handleChange}
           placeholder="job site"
+        />
+        <Input
+          name="job_link"
+          value={values.job_link}
+          onChange={handleChange}
+          placeholder="job link"
         />
       </fieldset>
 
