@@ -7,6 +7,7 @@ import SelectFilter from "@/components/select-filter";
 import AddApplcation from "@/components/modals/add-application";
 
 import { getApplications } from "@/services/applications.service";
+import { statusOptions, setupOptions } from "@/components/form/options";
 
 function MainPage() {
   const { data } = useQuery({
