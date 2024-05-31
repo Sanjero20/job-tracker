@@ -1,35 +1,17 @@
-import { FormEvent, useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+
 import LogoutButton from "@/components/logout-btn";
-
-import {
-  addAppliction,
-  getApplications,
-} from "@/services/applications.service";
-
-import { IApplication } from "@/types";
-
 import { DataTable } from "./components/table/data-table";
 import { columns } from "./components/table/columns";
 
+import { getApplications } from "@/services/applications.service";
+
 function MainPage() {
-  const [applications, setApplications] = useState<IApplication[]>([]);
-
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    // const res = await addAppliction({});
-    // if (res) {
-    //   setApplications([...applications, res.data]);
-    // }
-  };
-
-  useEffect(() => {
-    const getData = async () => {
-      const data = await getApplications();
-      setApplications(data.applications);
-    };
-
-    getData();
-  }, []);
+  const { data } = useQuery({
+    queryKey: ["applications"],
+    queryFn: getApplications,
+    initialData: [],
+  });
 
   return (
     <div className="container">
@@ -39,7 +21,7 @@ function MainPage() {
       </header>
 
       {/* Table */}
-      <DataTable columns={columns} data={applications} />
+      <DataTable columns={columns} data={data} />
     </div>
   );
 }

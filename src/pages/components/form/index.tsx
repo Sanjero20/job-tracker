@@ -1,4 +1,4 @@
-import { useState, ChangeEvent } from "react";
+import { useState, ChangeEvent, FormEvent } from "react";
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -28,6 +28,14 @@ function ApplicationForm() {
       ...values,
       [name]: value,
     });
+  };
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    // const res = await addAppliction({});
+    // if (res) {
+    //   setApplications([...applications, res.data]);
+    // }
   };
 
   return (

@@ -1,9 +1,9 @@
-import { IForm } from "@/types";
+import { IApplication, IForm } from "@/types";
 import { api } from "./config";
 
-export async function getApplications() {
+export async function getApplications(): Promise<IApplication[]> {
   const response = await api.get("/applications");
-  return await response.data;
+  return await response.data.applications;
 }
 
 export async function addAppliction(data: IForm) {
