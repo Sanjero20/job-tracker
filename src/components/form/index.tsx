@@ -96,15 +96,19 @@ function ApplicationForm() {
           value={values.min_compensation}
           onChange={handleChange}
           placeholder="min compensation"
+          step={1000}
           min={0}
         />
+
         <Input
           type="number"
           name="max_compensation"
           value={values.max_compensation}
           onChange={handleChange}
           placeholder="max compensation"
-          min={0}
+          step={1000}
+          min={values.min_compensation}
+          disabled={values.min_compensation < 0}
         />
       </fieldset>
 

@@ -1,15 +1,17 @@
 import { IApplication } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
+import moment from "moment";
 
 export const columns: ColumnDef<IApplication>[] = [
   {
     accessorKey: "status",
     header: "Status",
     cell: ({ row }) => {
-      const { status } = row.original;
+      const { id, status } = row.original;
 
+      // const handleSelectChange = () => {}
       // Change with select input
-      return <div></div>;
+      return <div>{status}</div>;
     },
   },
   {
@@ -42,9 +44,8 @@ export const columns: ColumnDef<IApplication>[] = [
     header: "Date Applied",
     cell: ({ row }) => {
       const { application_date } = row.original;
-      const month = new Date(application_date).getMonth();
-
-      return <div>{month}</div>;
+      const format = moment(application_date).format("MMM DD, YYYY");
+      return <div>{format}</div>;
     },
   },
   {
