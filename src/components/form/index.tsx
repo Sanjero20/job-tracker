@@ -1,12 +1,15 @@
 import { useState, ChangeEvent, FormEvent } from "react";
+import { useMutation } from "@tanstack/react-query";
 
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import CustomSelect from "../custom-select";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import CustomSelect from "@/components/custom-select";
 
 import { jobSiteOptions, setupOptions, statusOptions } from "./options";
 import { IForm } from "@/types";
-import { Textarea } from "../ui/textarea";
+import { addAppliction } from "@/services/applications.service";
+import { queryClient } from "@/App";
 
 const initialState: IForm = {
   status: statusOptions[0],
@@ -40,16 +43,26 @@ function ApplicationForm() {
     setValues(newValues);
   };
 
+  const mutation = useMutation({
+    mutationKey: ["applications"],
+    mutationFn: () => addAppliction(values),
+    onSuccess: () => {
+      // Clear values
+      // Close modal
+      queryClient.invalidateQueries({ queryKey: ["applications"] });
+    },
+    onError: () => {
+      // Display error
+    },
+  });
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    // const res = await addAppliction({});
-    // if (res) {
-    //   setApplications([...applications, res.data]);
-    // }
+    mutation.mutate();
   };
 
   return (
-    <form className="flex flex-col gap-2">
+    <form onSubmit={handleSubmit} className="flex flex-col gap-2">
       <Input
         name="company_name"
         value={values.company_name}
