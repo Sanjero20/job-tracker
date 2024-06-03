@@ -11,7 +11,7 @@ import ApplicationForm from "../form";
 function AddApplcation() {
   return (
     <Dialog>
-      <DialogTrigger>
+      <DialogTrigger asChild>
         <Button>Add Application</Button>
       </DialogTrigger>
       <DialogContent>
