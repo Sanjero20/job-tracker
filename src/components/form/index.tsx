@@ -27,6 +27,7 @@ const initialState: IForm = {
 
 function ApplicationForm() {
   const [values, setValues] = useState(initialState);
+  const [isLoading, setIsLoading] = useState(false);
   const { closeModal } = useAddModal();
 
   const handleChange = (
@@ -47,12 +48,16 @@ function ApplicationForm() {
 
   const mutation = useMutation({
     mutationFn: () => addAppliction(values),
+    onMutate: () => setIsLoading(true),
     onSuccess: () => {
       closeModal();
       queryClient.invalidateQueries({ queryKey: ["applications"] });
     },
     onError: () => {
       // Display error
+    },
+    onSettled: () => {
+      setIsLoading(false);
     },
   });
 
@@ -147,7 +152,9 @@ function ApplicationForm() {
         className="resize-none"
       />
 
-      <Button type="submit">Add Application</Button>
+      <Button type="submit" disabled={isLoading}>
+        Add Application
+      </Button>
     </form>
   );
 }
