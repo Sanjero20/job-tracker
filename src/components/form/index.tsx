@@ -7,9 +7,10 @@ import { Textarea } from "@/components/ui/textarea";
 import CustomSelect from "@/components/custom-select";
 
 import { jobSiteOptions, setupOptions, statusOptions } from "./options";
-import { IForm } from "@/types";
-import { addAppliction } from "@/services/applications.service";
 import { queryClient } from "@/App";
+import { addAppliction } from "@/services/applications.service";
+import { useAddModal } from "@/stores/addModalStore";
+import { IForm } from "@/types";
 
 const initialState: IForm = {
   status: statusOptions[0],
@@ -26,6 +27,7 @@ const initialState: IForm = {
 
 function ApplicationForm() {
   const [values, setValues] = useState(initialState);
+  const { closeModal } = useAddModal();
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -44,11 +46,9 @@ function ApplicationForm() {
   };
 
   const mutation = useMutation({
-    mutationKey: ["applications"],
     mutationFn: () => addAppliction(values),
     onSuccess: () => {
-      // Clear values
-      // Close modal
+      closeModal();
       queryClient.invalidateQueries({ queryKey: ["applications"] });
     },
     onError: () => {
@@ -57,6 +57,7 @@ function ApplicationForm() {
   });
 
   const handleSubmit = async (e: FormEvent) => {
+    // Disable add button on click
     e.preventDefault();
     mutation.mutate();
   };
