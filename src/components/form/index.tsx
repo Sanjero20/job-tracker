@@ -4,6 +4,8 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
 import { IForm } from "@/types";
+import { jobSiteOptions, setupOptions } from "./options";
+import CustomSelect from "../custom-select";
 
 const initialState: IForm = {
   status: "",
@@ -28,6 +30,12 @@ function ApplicationForm() {
       ...values,
       [name]: value,
     });
+  };
+
+  const handleSelect = (value: string, name: string) => {
+    console.log(value);
+    const newValues = { ...values, [name]: value };
+    setValues(newValues);
   };
 
   const handleSubmit = async (e: FormEvent) => {
@@ -55,10 +63,11 @@ function ApplicationForm() {
           placeholder="position"
         />
 
-        <Input
+        <CustomSelect
           name="setup"
           value={values.setup}
-          onChange={handleChange}
+          setValue={handleSelect}
+          options={setupOptions}
           placeholder="setup"
         />
       </fieldset>
@@ -88,20 +97,24 @@ function ApplicationForm() {
         onChange={handleChange}
         type="date"
         placeholder="application date"
+        required
       />
 
       <fieldset className="flex gap-2">
-        <Input
+        <CustomSelect
           name="job_site"
           value={values.job_site}
-          onChange={handleChange}
-          placeholder="job site"
+          setValue={handleSelect}
+          options={jobSiteOptions}
+          placeholder="Job Site"
+          required
         />
+
         <Input
           name="job_link"
           value={values.job_link}
           onChange={handleChange}
-          placeholder="job link"
+          placeholder="url"
         />
       </fieldset>
 

@@ -16,4 +16,5 @@ export const jobSiteOptions = [
   "Indeed",
   "OnlineJobs PH",
   "Company Website",
+  "Others",
 ];
