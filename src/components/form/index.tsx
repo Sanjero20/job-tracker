@@ -2,13 +2,14 @@ import { useState, ChangeEvent, FormEvent } from "react";
 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-
-import { IForm } from "@/types";
-import { jobSiteOptions, setupOptions } from "./options";
 import CustomSelect from "../custom-select";
 
+import { jobSiteOptions, setupOptions, statusOptions } from "./options";
+import { IForm } from "@/types";
+import { Textarea } from "../ui/textarea";
+
 const initialState: IForm = {
-  status: "",
+  status: statusOptions[0],
   position: "",
   company_name: "",
   min_compensation: 0,
@@ -23,7 +24,9 @@ const initialState: IForm = {
 function ApplicationForm() {
   const [values, setValues] = useState(initialState);
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
     const { name, value } = e.target;
 
     setValues({
@@ -33,7 +36,6 @@ function ApplicationForm() {
   };
 
   const handleSelect = (value: string, name: string) => {
-    console.log(value);
     const newValues = { ...values, [name]: value };
     setValues(newValues);
   };
@@ -69,6 +71,7 @@ function ApplicationForm() {
           setValue={handleSelect}
           options={setupOptions}
           placeholder="setup"
+          required
         />
       </fieldset>
 
@@ -118,11 +121,12 @@ function ApplicationForm() {
         />
       </fieldset>
 
-      <Input
+      <Textarea
         name="note"
         value={values.note}
         onChange={handleChange}
         placeholder="note"
+        className="resize-none"
       />
 
       <Button type="submit">Add Application</Button>

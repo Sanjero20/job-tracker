@@ -32,7 +32,7 @@ function CustomSelect({
   };
 
   return (
-    <Select value={value} onValueChange={handleSelect}>
+    <Select value={value} onValueChange={handleSelect} required={required}>
       <SelectTrigger className={className}>
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>
