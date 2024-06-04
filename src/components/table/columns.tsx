@@ -1,6 +1,7 @@
-import { IApplication } from "@/types";
-import { ColumnDef } from "@tanstack/react-table";
 import moment from "moment";
+import { ColumnDef } from "@tanstack/react-table";
+import SelectStatus from "./select-status";
+import { IApplication } from "@/types";
 
 export const columns: ColumnDef<IApplication>[] = [
   {
@@ -8,10 +9,7 @@ export const columns: ColumnDef<IApplication>[] = [
     header: "Status",
     cell: ({ row }) => {
       const { id, status } = row.original;
-
-      // const handleSelectChange = () => {}
-      // Change with select input
-      return <div>{status}</div>;
+      return <SelectStatus id={id} status={status} />;
     },
   },
   {
