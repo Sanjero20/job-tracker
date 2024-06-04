@@ -8,7 +8,7 @@ import CustomSelect from "@/components/custom-select";
 
 import { jobSiteOptions, setupOptions, statusOptions } from "./options";
 import { queryClient } from "@/App";
-import { addAppliction } from "@/services/applications.service";
+import { addApplication } from "@/services/applications.service";
 import { useAddModal } from "@/stores/addModalStore";
 import { IForm } from "@/types";
 
@@ -47,7 +47,7 @@ function ApplicationForm() {
   };
 
   const mutation = useMutation({
-    mutationFn: () => addAppliction(values),
+    mutationFn: () => addApplication(values),
     onMutate: () => setIsLoading(true),
     onSuccess: () => {
       closeModal();
