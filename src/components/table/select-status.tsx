@@ -33,7 +33,7 @@ function SelectStatus({ id, status }: Props) {
 
   return (
     <Select value={value} onValueChange={handleSelect}>
-      <SelectTrigger>
+      <SelectTrigger className="w-[175px]">
         <SelectValue placeholder="Status" />
       </SelectTrigger>
 
