@@ -11,6 +11,7 @@ import {
 
 import { statusOptions } from "../form/options";
 import { updateStatus } from "@/services/applications.service";
+import { queryClient } from "@/App";
 
 interface Props {
   id: number;
@@ -22,7 +23,9 @@ function SelectStatus({ id, status }: Props) {
 
   const mutation = useMutation({
     mutationFn: () => updateStatus(id, value),
-    // onSuccess: () => {},
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["applications"] });
+    },
     // onError: () => {},
   });
 
