@@ -13,6 +13,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { useViewModalStore } from "@/stores/viewModalStore";
+import { IApplication } from "@/types";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -23,6 +25,8 @@ export function DataTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
+  const { openModal } = useViewModalStore();
+
   const table = useReactTable({
     data,
     columns,
@@ -57,6 +61,10 @@ export function DataTable<TData, TValue>({
               <TableRow
                 key={row.id}
                 data-state={row.getIsSelected() && "selected"}
+                onClick={() => {
+                  console.log("hello");
+                  openModal(row.original as IApplication);
+                }}
                 className="cursor-pointer"
               >
                 {row.getVisibleCells().map((cell) => (

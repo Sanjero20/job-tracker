@@ -9,6 +9,7 @@ import CustomSelect from "@/components/custom-select";
 import { getApplications } from "@/services/applications.service";
 import { statusOptions, setupOptions } from "@/components/form/options";
 import { useState } from "react";
+import ViewApplication from "@/components/modals/view-application";
 
 function MainPage() {
   // Filters
@@ -63,6 +64,8 @@ function MainPage() {
 
       {/* Table */}
       <DataTable columns={columns} data={data} />
+
+      <ViewApplication />
     </div>
   );
 }
