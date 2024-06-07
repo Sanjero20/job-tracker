@@ -9,7 +9,7 @@ import CustomSelect from "@/components/custom-select";
 import { jobSiteOptions, setupOptions, statusOptions } from "./options";
 import { queryClient } from "@/App";
 import { addApplication } from "@/services/applications.service";
-import { useAddModal } from "@/stores/addModalStore";
+import { useAddModalStore } from "@/stores/addModalStore";
 import { IForm } from "@/types";
 
 const initialState: IForm = {
@@ -28,7 +28,7 @@ const initialState: IForm = {
 function ApplicationForm() {
   const [values, setValues] = useState(initialState);
   const [isLoading, setIsLoading] = useState(false);
-  const { closeModal } = useAddModal();
+  const { closeModal } = useAddModalStore();
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
