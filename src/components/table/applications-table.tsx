@@ -1,4 +1,4 @@
-import { IApplication } from "@/types";
+import moment from "moment";
 import {
   Table,
   TableBody,
@@ -8,19 +8,25 @@ import {
   TableRow,
 } from "../ui/table";
 import SelectStatus from "./select-status";
-
-import moment from "moment";
+import { useViewModalStore } from "@/stores/viewModalStore";
+import { IApplication } from "@/types";
 
 interface Props {
   data: IApplication[];
+  filters: {
+    setup: string;
+    status: string;
+  };
 }
 
-function ApplicationsTable({ data }: Props) {
+function ApplicationsTable({ data, filters }: Props) {
+  const { openModal } = useViewModalStore();
+
   return (
     <Table className="relative h-full w-full">
       {/* Columns */}
       <TableHeader className="sticky top-0">
-        <TableRow className="bg-background">
+        <TableRow className="bg-background hover:bg-background">
           <TableHead>Status</TableHead>
           <TableHead>Company</TableHead>
           <TableHead>Position</TableHead>
@@ -34,29 +40,48 @@ function ApplicationsTable({ data }: Props) {
 
       {/* Content */}
       <TableBody>
-        {data.map((application) => (
-          <TableRow key={application.id}>
-            <TableCell>
-              <SelectStatus id={application.id} status={application.status} />
-            </TableCell>
+        {data
+          .filter((item) => item.status === filters.status || !filters.status)
+          .filter((item) => item.setup === filters.setup || !filters.setup)
+          .map((application) => (
+            <TableRow
+              key={application.id}
+              className="cursor-pointer select-none"
+            >
+              <TableCell>
+                <SelectStatus id={application.id} status={application.status} />
+              </TableCell>
 
-            <TableCell>{application.company_name}</TableCell>
+              <TableCell>{application.company_name}</TableCell>
 
-            <TableCell>{application.position}</TableCell>
+              <TableCell>{application.position}</TableCell>
 
-            {/*Price  */}
-            <TableCell>{application.min_compensation}</TableCell>
+              {/* TODO: Proper formatting */}
+              <TableCell>
+                {application.min_compensation} - {application.max_compensation}
+              </TableCell>
 
-            <TableCell>{application.setup}</TableCell>
+              <TableCell>{application.setup}</TableCell>
 
-            <TableCell>
-              {moment(application.application_date).format("MMM DD, YYYY")}
-            </TableCell>
+              <TableCell>
+                {moment(application.application_date).format("MMM DD, YYYY")}
+              </TableCell>
 
-            <TableCell>{application.job_site}</TableCell>
-            <TableCell></TableCell>
-          </TableRow>
-        ))}
+              {/* TODO:  properly redirect to page*/}
+              <TableCell>
+                <a
+                  href={application.job_link}
+                  target="blank"
+                  className="hover:underline"
+                >
+                  {application.job_site}
+                </a>
+              </TableCell>
+
+              {/* Actions */}
+              <TableCell></TableCell>
+            </TableRow>
+          ))}
       </TableBody>
     </Table>
   );

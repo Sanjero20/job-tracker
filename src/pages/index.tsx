@@ -62,7 +62,7 @@ function MainPage() {
 
       {/* Table */}
       <ScrollArea className="h-full max-h-[80vh] rounded bg-background shadow-lg">
-        <ApplicationsTable data={data} />
+        <ApplicationsTable data={data} filters={filters} />
       </ScrollArea>
 
       <ViewApplication />
