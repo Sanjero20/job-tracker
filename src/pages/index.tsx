@@ -1,15 +1,15 @@
+import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 
 import LogoutButton from "@/components/logout-btn";
-import { DataTable } from "@/components/table/data-table";
-import { columns } from "@/components/table/columns";
 import AddApplcation from "@/components/modals/add-application";
 import CustomSelect from "@/components/custom-select";
+import { statusOptions, setupOptions } from "@/components/form/options";
+import ApplicationsTable from "@/components/table/applications-table";
+import ViewApplication from "@/components/modals/view-application";
 
 import { getApplications } from "@/services/applications.service";
-import { statusOptions, setupOptions } from "@/components/form/options";
-import { useState } from "react";
-import ViewApplication from "@/components/modals/view-application";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 function MainPage() {
   // Filters
@@ -29,11 +29,9 @@ function MainPage() {
     setFilters(newFilters);
   };
 
-  console.log(filters);
-
   return (
-    <div className="container flex flex-col gap-2">
-      <header className="flex w-full items-center justify-between py-2">
+    <div className="container flex flex-col gap-2 py-2">
+      <header className="flex w-full items-center justify-between">
         <h1 className="text-xl font-bold">Application Tracker</h1>
         <LogoutButton />
       </header>
@@ -63,7 +61,9 @@ function MainPage() {
       </div>
 
       {/* Table */}
-      <DataTable columns={columns} data={data} />
+      <ScrollArea className="h-full max-h-[80vh] rounded bg-background shadow-lg">
+        <ApplicationsTable data={data} />
+      </ScrollArea>
 
       <ViewApplication />
     </div>
