@@ -7,7 +7,9 @@ import {
   TableHeader,
   TableRow,
 } from "../ui/table";
+import { Button } from "../ui/button";
 import SelectStatus from "./select-status";
+
 import { useViewModalStore } from "@/stores/viewModalStore";
 import { IApplication } from "@/types";
 
@@ -27,14 +29,14 @@ function ApplicationsTable({ data, filters }: Props) {
       {/* Columns */}
       <TableHeader className="sticky top-0">
         <TableRow className="bg-background hover:bg-background">
-          <TableHead>Status</TableHead>
+          <TableHead className="w-24">Status</TableHead>
           <TableHead>Company</TableHead>
           <TableHead>Position</TableHead>
           <TableHead>Price</TableHead>
           <TableHead>Setup</TableHead>
           <TableHead>Date Applied</TableHead>
           <TableHead>Job Posting</TableHead>
-          <TableHead>Actions</TableHead>
+          <TableHead className="w-24">Actions</TableHead>
         </TableRow>
       </TableHeader>
 
@@ -47,6 +49,7 @@ function ApplicationsTable({ data, filters }: Props) {
             <TableRow
               key={application.id}
               className="cursor-pointer select-none"
+              onClick={() => openModal(application)}
             >
               <TableCell>
                 <SelectStatus id={application.id} status={application.status} />
@@ -78,7 +81,29 @@ function ApplicationsTable({ data, filters }: Props) {
               </TableCell>
 
               {/* Actions */}
-              <TableCell></TableCell>
+              <TableCell className="flex gap-1">
+                <Button
+                  variant="outline"
+                  className="w-1/2"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    // Open Update Modal
+                  }}
+                >
+                  Edit
+                </Button>
+
+                <Button
+                  variant="outline"
+                  className="w-1/2"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    // Open Delete Modal
+                  }}
+                >
+                  Delete
+                </Button>
+              </TableCell>
             </TableRow>
           ))}
       </TableBody>
