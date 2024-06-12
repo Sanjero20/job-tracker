@@ -141,6 +141,7 @@ function ApplicationForm() {
           value={values.job_link}
           onChange={handleChange}
           placeholder="url"
+          required
         />
       </fieldset>
 
