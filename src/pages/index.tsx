@@ -2,14 +2,16 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 
 import LogoutButton from "@/components/logout-btn";
-import AddApplcation from "@/components/modals/add-application";
 import CustomSelect from "@/components/custom-select";
 import { statusOptions, setupOptions } from "@/components/form/options";
 import ApplicationsTable from "@/components/table/applications-table";
-import ViewApplication from "@/components/modals/view-application";
+
+import AddApplcationModal from "@/components/modals/add-application";
+import ViewApplicationModal from "@/components/modals/view-application";
 
 import { getApplications } from "@/services/applications.service";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import DeleteApplicationModal from "@/components/modals/delete-application";
 
 function MainPage() {
   // Filters
@@ -29,6 +31,8 @@ function MainPage() {
     setFilters(newFilters);
   };
 
+  console.log(data);
+
   return (
     <div className="container flex flex-col gap-2 py-2">
       <header className="flex w-full items-center justify-between">
@@ -38,7 +42,7 @@ function MainPage() {
 
       {/* Utilities */}
       <div className="flex gap-4">
-        <AddApplcation />
+        <AddApplcationModal />
 
         {/* Filters  */}
         <CustomSelect
@@ -65,7 +69,9 @@ function MainPage() {
         <ApplicationsTable data={data} filters={filters} />
       </ScrollArea>
 
-      <ViewApplication />
+      {/* Modals */}
+      <ViewApplicationModal />
+      <DeleteApplicationModal />
     </div>
   );
 }

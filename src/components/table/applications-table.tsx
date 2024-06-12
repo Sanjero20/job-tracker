@@ -12,6 +12,8 @@ import SelectStatus from "./select-status";
 
 import { useViewModal } from "@/stores/viewModalStore";
 import { IApplication } from "@/types";
+import DeleteButtonModal from "./action-buttons/delete-button";
+import UpdateButtonModal from "./action-buttons/update-button";
 
 interface Props {
   data: IApplication[];
@@ -82,27 +84,8 @@ function ApplicationsTable({ data, filters }: Props) {
 
               {/* Actions */}
               <TableCell className="flex gap-1">
-                <Button
-                  variant="outline"
-                  className="w-1/2"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    // Open Update Modal
-                  }}
-                >
-                  Edit
-                </Button>
-
-                <Button
-                  variant="outline"
-                  className="w-1/2"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    // Open Delete Modal
-                  }}
-                >
-                  Delete
-                </Button>
+                <UpdateButtonModal data={application} />
+                <DeleteButtonModal id={application.id} />
               </TableCell>
             </TableRow>
           ))}
