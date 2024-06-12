@@ -7,7 +7,6 @@ import {
   TableHeader,
   TableRow,
 } from "../ui/table";
-import { Button } from "../ui/button";
 import SelectStatus from "./select-status";
 
 import { useViewModal } from "@/stores/viewModalStore";
@@ -31,14 +30,14 @@ function ApplicationsTable({ data, filters }: Props) {
       {/* Columns */}
       <TableHeader className="sticky top-0">
         <TableRow className="bg-background hover:bg-background">
-          <TableHead className="w-24">Status</TableHead>
-          <TableHead>Company</TableHead>
-          <TableHead>Position</TableHead>
-          <TableHead>Price</TableHead>
+          <TableHead className="w-52">Status</TableHead>
+          <TableHead className="w-48">Company</TableHead>
+          <TableHead className="w-48">Position</TableHead>
+          <TableHead className="w-48">Price</TableHead>
           <TableHead>Setup</TableHead>
           <TableHead>Date Applied</TableHead>
           <TableHead>Job Posting</TableHead>
-          <TableHead className="w-24">Actions</TableHead>
+          <TableHead className="w-48">Actions</TableHead>
         </TableRow>
       </TableHeader>
 
