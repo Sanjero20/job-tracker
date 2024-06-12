@@ -7,7 +7,7 @@ interface State {
   closeModal: () => void;
 }
 
-export const useAddModalStore = create<State>((set) => ({
+export const useAddModal = create<State>((set) => ({
   isOpen: false,
   toggleModal: () => set((state) => ({ isOpen: !state.isOpen })),
   openModal: () => set({ isOpen: true }),

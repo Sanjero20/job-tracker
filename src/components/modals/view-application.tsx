@@ -1,15 +1,15 @@
-import { DialogTitle } from "@radix-ui/react-dialog";
 import {
   Dialog,
+  DialogTitle,
   DialogContent,
   DialogFooter,
   DialogHeader,
 } from "../ui/dialog";
 
-import { useViewModalStore } from "@/stores/viewModalStore";
+import { useViewModal } from "@/stores/viewModalStore";
 
-function ViewApplication() {
-  const { data, isOpen, toggleModal } = useViewModalStore();
+function ViewApplicationModal() {
+  const { data, isOpen, toggleModal } = useViewModal();
 
   return (
     <Dialog open={isOpen} onOpenChange={toggleModal}>
@@ -30,4 +30,4 @@ function ViewApplication() {
   );
 }
 
-export default ViewApplication;
+export default ViewApplicationModal;

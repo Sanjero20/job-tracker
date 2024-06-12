@@ -8,10 +8,10 @@ import {
 import { Button } from "../ui/button";
 import ApplicationForm from "../form";
 
-import { useAddModalStore } from "@/stores/addModalStore";
+import { useAddModal } from "@/stores/addModalStore";
 
-function AddApplcation() {
-  const { isOpen, toggleModal } = useAddModalStore();
+function AddApplcationModal() {
+  const { isOpen, toggleModal } = useAddModal();
 
   return (
     <Dialog open={isOpen} onOpenChange={toggleModal}>
@@ -29,4 +29,4 @@ function AddApplcation() {
   );
 }
 
-export default AddApplcation;
+export default AddApplcationModal;

@@ -10,7 +10,7 @@ import {
 import { Button } from "../ui/button";
 import SelectStatus from "./select-status";
 
-import { useViewModalStore } from "@/stores/viewModalStore";
+import { useViewModal } from "@/stores/viewModalStore";
 import { IApplication } from "@/types";
 
 interface Props {
@@ -22,7 +22,7 @@ interface Props {
 }
 
 function ApplicationsTable({ data, filters }: Props) {
-  const { openModal } = useViewModalStore();
+  const { openModal } = useViewModal();
 
   return (
     <Table className="relative h-full w-full">
