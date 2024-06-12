@@ -20,8 +20,8 @@ const initialState: IForm = {
   max_compensation: 0,
   setup: "",
   application_date: "",
-  job_site: "",
-  job_link: "",
+  site: "",
+  url: "",
   note: "",
 };
 
@@ -128,8 +128,8 @@ function ApplicationForm() {
 
       <fieldset className="flex gap-2">
         <CustomSelect
-          name="job_site"
-          value={values.job_site}
+          name="site"
+          value={values.site}
           setValue={handleSelect}
           options={jobSiteOptions}
           placeholder="Job Site"
@@ -137,8 +137,8 @@ function ApplicationForm() {
         />
 
         <Input
-          name="job_link"
-          value={values.job_link}
+          name="url"
+          value={values.url}
           onChange={handleChange}
           placeholder="url"
           required

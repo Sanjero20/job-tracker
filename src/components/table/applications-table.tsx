@@ -67,14 +67,13 @@ function ApplicationsTable({ data, filters }: Props) {
                 {moment(application.application_date).format("MMM DD, YYYY")}
               </TableCell>
 
-              {/* TODO:  properly redirect to page*/}
               <TableCell>
                 <a
-                  href={application.job_link}
+                  href={application.url}
                   target="blank"
                   className="hover:underline"
                 >
-                  {application.job_site}
+                  {application.site}
                 </a>
               </TableCell>
 

@@ -6,8 +6,8 @@ export interface IForm {
   max_compensation: number;
   setup: string;
   application_date: string;
-  job_site: string;
-  job_link: string;
+  site: string;
+  url: string;
   note: string;
 }
 
