@@ -1,53 +1,49 @@
-import { useState, ChangeEvent, FormEvent } from "react";
+import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
+import { useForm } from "react-hook-form";
 
-import { Button } from "@/components/ui/button";
+// components
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import CustomSelect from "@/components/custom-select";
+import { Button } from "@/components/ui/button";
 
-import { jobSiteOptions, setupOptions, statusOptions } from "./options";
-import { queryClient } from "@/App";
 import { addApplication } from "@/services/applications.service";
 import { useAddModal } from "@/stores/addModalStore";
+
+// utils
+import { jobSiteOptions, setupOptions } from "./options";
+import { queryClient } from "@/App";
 import { IForm } from "@/types";
 
-const initialState: IForm = {
-  status: statusOptions[0],
-  position: "",
-  company_name: "",
-  min_compensation: 0,
-  max_compensation: 0,
-  setup: "",
-  application_date: "",
-  site: "",
-  url: "",
-  note: "",
-};
+// form validation
+import { formSchema } from "./schema";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { Textarea } from "../ui/textarea";
+import SelectInput from "./select-input";
 
-function ApplicationForm() {
-  const [values, setValues] = useState(initialState);
+interface Props {
+  values: IForm;
+}
+
+function ApplicationForm({ values }: Props) {
   const [isLoading, setIsLoading] = useState(false);
   const { closeModal } = useAddModal();
 
-  const handleChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => {
-    const { name, value } = e.target;
-
-    setValues({
-      ...values,
-      [name]: value,
-    });
-  };
-
-  const handleSelect = (value: string, name: string) => {
-    const newValues = { ...values, [name]: value };
-    setValues(newValues);
-  };
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: values,
+  });
 
   const mutation = useMutation({
-    mutationFn: () => addApplication(values),
+    mutationFn: (values: IForm) => addApplication(values),
     onMutate: () => setIsLoading(true),
     onSuccess: () => {
       closeModal();
@@ -61,102 +57,168 @@ function ApplicationForm() {
     },
   });
 
-  const handleSubmit = async (e: FormEvent) => {
-    // Disable add button on click
-    e.preventDefault();
-    mutation.mutate();
+  const onSubmit = (data: z.infer<typeof formSchema>) => {
+    console.log(data);
   };
 
+  console.clear();
+  console.log(form.watch());
+
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-2">
-      <Input
-        name="company_name"
-        value={values.company_name}
-        onChange={handleChange}
-        placeholder="company name"
-      />
-
-      <fieldset className="flex gap-2">
-        <Input
-          name="position"
-          value={values.position}
-          onChange={handleChange}
-          placeholder="position"
+    <Form {...form}>
+      <form
+        className="flex flex-col gap-2"
+        onSubmit={form.handleSubmit(onSubmit)}
+      >
+        <FormField
+          control={form.control}
+          name="company_name"
+          render={({ field }) => (
+            <FormItem>
+              <FormControl>
+                <Input placeholder="Company" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
         />
 
-        <CustomSelect
-          name="setup"
-          value={values.setup}
-          setValue={handleSelect}
-          options={setupOptions}
-          placeholder="setup"
-          required
+        <fieldset className="grid grid-cols-2 gap-2">
+          <FormField
+            control={form.control}
+            name="position"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <Input placeholder="Position" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="setup"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl className="w-full bg-green-900">
+                  <SelectInput
+                    value={field.value}
+                    onChange={field.onChange}
+                    options={setupOptions}
+                    placeholder="Setup"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </fieldset>
+
+        {/* Salary range*/}
+        <div>Salary</div>
+        <fieldset className="flex items-center gap-1">
+          <FormField
+            control={form.control}
+            name="min_compensation"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <Input type="number" min={0} step={1000} {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <span>-</span>
+
+          <FormField
+            control={form.control}
+            name="max_compensation"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <Input type="number" min={0} step={1000} {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </fieldset>
+
+        {/* Date Picker */}
+        <FormField
+          control={form.control}
+          name="application_date"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Application Date</FormLabel>
+              <FormControl>
+                <Input type="date" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
         />
-      </fieldset>
 
-      <fieldset className="flex gap-2">
-        <Input
-          type="number"
-          name="min_compensation"
-          value={values.min_compensation}
-          onChange={handleChange}
-          placeholder="min compensation"
-          step={1000}
-          min={0}
+        {/* Job Details */}
+        <fieldset className="grid grid-cols-2 gap-2">
+          <FormField
+            control={form.control}
+            name="site"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <SelectInput
+                    value={field.value}
+                    onChange={field.onChange}
+                    options={jobSiteOptions}
+                    placeholder="Site"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="url"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <Input placeholder="url" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </fieldset>
+
+        {/* Note */}
+        <FormField
+          control={form.control}
+          name="note"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Note</FormLabel>
+              <FormControl>
+                <Textarea
+                  placeholder="Note"
+                  className="resize-none"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
         />
 
-        <Input
-          type="number"
-          name="max_compensation"
-          value={values.max_compensation}
-          onChange={handleChange}
-          placeholder="max compensation"
-          step={1000}
-          min={values.min_compensation}
-          disabled={values.min_compensation < 0}
-        />
-      </fieldset>
-
-      <Input
-        name="application_date"
-        value={values.application_date}
-        onChange={handleChange}
-        type="date"
-        placeholder="application date"
-        required
-      />
-
-      <fieldset className="flex gap-2">
-        <CustomSelect
-          name="site"
-          value={values.site}
-          setValue={handleSelect}
-          options={jobSiteOptions}
-          placeholder="Job Site"
-          required
-        />
-
-        <Input
-          name="url"
-          value={values.url}
-          onChange={handleChange}
-          placeholder="url"
-          required
-        />
-      </fieldset>
-
-      <Textarea
-        name="note"
-        value={values.note}
-        onChange={handleChange}
-        placeholder="note"
-        className="resize-none"
-      />
-
-      <Button type="submit" disabled={isLoading}>
-        Add Application
-      </Button>
-    </form>
+        {/* End */}
+        <Button type="submit">Submit</Button>
+      </form>
+    </Form>
   );
 }
 

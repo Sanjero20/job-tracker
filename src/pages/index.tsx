@@ -31,8 +31,6 @@ function MainPage() {
     setFilters(newFilters);
   };
 
-  console.log(data);
-
   return (
     <div className="container flex flex-col gap-2 py-2">
       <header className="flex w-full items-center justify-between">
