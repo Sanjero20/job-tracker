@@ -13,6 +13,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
+import SelectInput from "./select-input";
 
 import { addApplication } from "@/services/applications.service";
 import { useAddModal } from "@/stores/addModalStore";
@@ -26,8 +28,6 @@ import { IForm } from "@/types";
 import { formSchema } from "./schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Textarea } from "../ui/textarea";
-import SelectInput from "./select-input";
 
 interface Props {
   values: IForm;
@@ -57,12 +57,9 @@ function ApplicationForm({ values }: Props) {
     },
   });
 
-  const onSubmit = (data: z.infer<typeof formSchema>) => {
-    console.log(data);
+  const onSubmit = (data: any) => {
+    mutation.mutate(data);
   };
-
-  console.clear();
-  console.log(form.watch());
 
   return (
     <Form {...form}>
@@ -101,7 +98,7 @@ function ApplicationForm({ values }: Props) {
             name="setup"
             render={({ field }) => (
               <FormItem>
-                <FormControl className="w-full bg-green-900">
+                <FormControl>
                   <SelectInput
                     value={field.value}
                     onChange={field.onChange}
@@ -116,7 +113,6 @@ function ApplicationForm({ values }: Props) {
         </fieldset>
 
         {/* Salary range*/}
-        <div>Salary</div>
         <fieldset className="flex items-center gap-1">
           <FormField
             control={form.control}
@@ -124,7 +120,13 @@ function ApplicationForm({ values }: Props) {
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <Input type="number" min={0} step={1000} {...field} />
+                  <Input
+                    type="number"
+                    min={0}
+                    step={1000}
+                    {...field}
+                    onChange={(e) => field.onChange(parseInt(e.target.value))}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -139,7 +141,13 @@ function ApplicationForm({ values }: Props) {
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <Input type="number" min={0} step={1000} {...field} />
+                  <Input
+                    type="number"
+                    min={0}
+                    step={1000}
+                    {...field}
+                    onChange={(e) => field.onChange(parseInt(e.target.value))}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -147,7 +155,7 @@ function ApplicationForm({ values }: Props) {
           />
         </fieldset>
 
-        {/* Date Picker */}
+        {/* TODO: Change to shadcn - Date Picker */}
         <FormField
           control={form.control}
           name="application_date"
@@ -216,7 +224,9 @@ function ApplicationForm({ values }: Props) {
         />
 
         {/* End */}
-        <Button type="submit">Submit</Button>
+        <Button type="submit" disabled={isLoading}>
+          Submit
+        </Button>
       </form>
     </Form>
   );

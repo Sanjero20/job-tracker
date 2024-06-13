@@ -34,7 +34,7 @@ function AddApplcationModal() {
       <DialogTrigger asChild>
         <Button>Add Application</Button>
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent className="max-h-[500px] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>Add new application</DialogTitle>
         </DialogHeader>
