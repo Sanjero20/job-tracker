@@ -8,7 +8,7 @@ export const statusOptions = [
   "Offered",
 ];
 
-export const setupOptions = ["on-site", "remote", "hybrid"];
+export const setupOptions = ["onsite", "remote", "hybrid"];
 
 export const jobSiteOptions = [
   "Linkedin",
