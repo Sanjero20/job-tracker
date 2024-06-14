@@ -12,6 +12,7 @@ import ViewApplicationModal from "@/components/modals/view-application";
 import { getApplications } from "@/services/applications.service";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import DeleteApplicationModal from "@/components/modals/delete-application";
+import UpdateApplicationModal from "@/components/modals/update-application";
 
 function MainPage() {
   // Filters
@@ -69,6 +70,7 @@ function MainPage() {
 
       {/* Modals */}
       <ViewApplicationModal />
+      <UpdateApplicationModal />
       <DeleteApplicationModal />
     </div>
   );

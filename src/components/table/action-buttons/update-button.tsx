@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { useUpdateModal } from "@/stores/updateModalStore";
 import { IApplication } from "@/types";
 
 interface Props {
@@ -6,10 +7,10 @@ interface Props {
 }
 
 function UpdateButtonModal({ data }: Props) {
-  // const { openModal } = useDeleteModal();
+  const { openModal } = useUpdateModal();
 
   const handleClick = () => {
-    // openModal(data);
+    openModal(data);
   };
 
   return (

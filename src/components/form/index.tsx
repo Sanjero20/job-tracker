@@ -17,20 +17,24 @@ import SelectInput from "./select-input";
 
 // utils
 import { jobSiteOptions, setupOptions } from "./options";
-import { IForm } from "@/types";
+import { IApplication, IForm } from "@/types";
 
 // form validation
 import { formSchema } from "./schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { useUpdateModal } from "@/stores/updateModalStore";
 
 interface Props {
-  values: IForm;
+  values: IForm | IApplication;
   onSubmit: (data: any) => void;
   isLoading: boolean;
+  type: "add" | "update";
 }
 
-function ApplicationForm({ values, onSubmit, isLoading }: Props) {
+function ApplicationForm({ type, values, onSubmit, isLoading }: Props) {
+  const { closeModal } = useUpdateModal();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: values,
@@ -54,7 +58,6 @@ function ApplicationForm({ values, onSubmit, isLoading }: Props) {
             </FormItem>
           )}
         />
-
         <fieldset className="grid grid-cols-2 gap-2">
           <FormField
             control={form.control}
@@ -86,7 +89,6 @@ function ApplicationForm({ values, onSubmit, isLoading }: Props) {
             )}
           />
         </fieldset>
-
         {/* Salary range*/}
         <fieldset className="flex items-center gap-1">
           <FormField
@@ -129,7 +131,6 @@ function ApplicationForm({ values, onSubmit, isLoading }: Props) {
             )}
           />
         </fieldset>
-
         {/* TODO: Change to shadcn - Date Picker */}
         <FormField
           control={form.control}
@@ -144,7 +145,6 @@ function ApplicationForm({ values, onSubmit, isLoading }: Props) {
             </FormItem>
           )}
         />
-
         {/* Job Details */}
         <fieldset className="grid grid-cols-2 gap-2">
           <FormField
@@ -178,7 +178,6 @@ function ApplicationForm({ values, onSubmit, isLoading }: Props) {
             )}
           />
         </fieldset>
-
         {/* Note */}
         <FormField
           control={form.control}
@@ -197,11 +196,20 @@ function ApplicationForm({ values, onSubmit, isLoading }: Props) {
             </FormItem>
           )}
         />
+        {/* End */}{" "}
+        {type === "add" ? (
+          <Button type="submit" disabled={isLoading}>
+            Submit
+          </Button>
+        ) : (
+          <fieldset disabled={isLoading} className="grid grid-cols-2 gap-2">
+            <Button type="button" variant={"ghost"} onClick={closeModal}>
+              Cancel
+            </Button>
 
-        {/* End */}
-        <Button type="submit" disabled={isLoading}>
-          Submit
-        </Button>
+            <Button type="submit">Update</Button>
+          </fieldset>
+        )}
       </form>
     </Form>
   );

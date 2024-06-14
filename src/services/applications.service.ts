@@ -16,6 +16,11 @@ export async function updateStatus(id: number, status: string) {
   return await response.data;
 }
 
+export async function updateApplicationById(id: number, data: IForm) {
+  const response = await api.post(`/applications/${id}`, data);
+  return await response.data;
+}
+
 export async function deleteApplicationById(id: number) {
   const response = await api.delete(`/applications/${id}`);
   return await response.data;
