@@ -4,9 +4,13 @@ import { Button } from "@/components/ui/button";
 
 import { useViewModal } from "@/stores/viewModalStore";
 import moment from "moment";
+import { formatSalary } from "@/utils/formatSalary";
 
 function ViewApplicationModal() {
   const { data, isOpen, toggleModal } = useViewModal();
+
+  const salary =
+    data && formatSalary(data?.min_compensation, data?.max_compensation);
 
   return (
     <Dialog open={isOpen} onOpenChange={toggleModal}>
@@ -16,18 +20,14 @@ function ViewApplicationModal() {
             <div className="flex flex-col">
               <h2 className="font-bold">{data.position}</h2>
               <h3>
-                {data.company_name} &middot; {data.setup}
+                {data.company_name} &middot; {data.setup} &middot; {salary}
               </h3>
             </div>
 
             <p>{data.status}</p>
           </section>
 
-          {/* Salary */}
-          <section>
-            <p>
-              Salary: {data.min_compensation} - {data.max_compensation}
-            </p>
+          <section className="">
             <p>
               Applied on {moment(data.application_date).format("MMMM DD, YYYY")}
             </p>

@@ -13,6 +13,7 @@ import { useViewModal } from "@/stores/viewModalStore";
 import { IApplication } from "@/types";
 import DeleteButtonModal from "./action-buttons/delete-button";
 import UpdateButtonModal from "./action-buttons/update-button";
+import { formatSalary } from "@/utils/formatSalary";
 
 interface Props {
   data: IApplication[];
@@ -33,7 +34,7 @@ function ApplicationsTable({ data, filters }: Props) {
           <TableHead className="w-52">Status</TableHead>
           <TableHead className="w-48">Company</TableHead>
           <TableHead className="w-48">Position</TableHead>
-          <TableHead className="w-48">Price</TableHead>
+          <TableHead className="w-[20ch]">Price</TableHead>
           <TableHead>Setup</TableHead>
           <TableHead>Date Applied</TableHead>
           <TableHead>Job Posting</TableHead>
@@ -62,7 +63,10 @@ function ApplicationsTable({ data, filters }: Props) {
 
               {/* TODO: Proper formatting */}
               <TableCell>
-                {application.min_compensation} - {application.max_compensation}
+                {formatSalary(
+                  application.min_compensation,
+                  application.max_compensation,
+                )}
               </TableCell>
 
               <TableCell>{application.setup}</TableCell>
