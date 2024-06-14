@@ -23,21 +23,21 @@ function ViewApplicationModal() {
                 {data.company_name} &middot; {data.setup} &middot; {salary}
               </h3>
             </div>
-
-            <p>{data.status}</p>
           </section>
 
-          <section className="">
+          <section className="flex justify-between">
             <p>
               Applied on {moment(data.application_date).format("MMMM DD, YYYY")}
             </p>
+
+            <p>{data.status}</p>
           </section>
 
           {/* Note */}
           {data.note && (
             <section className="">
               <p>Note</p>
-              <ScrollArea className="h-24 whitespace-pre-line rounded border border-primary p-2 text-sm">
+              <ScrollArea className="h-24 whitespace-pre-line rounded border border-neutral-400 p-2 text-sm">
                 {data.note}
               </ScrollArea>
             </section>
