@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { useMutation } from "@tanstack/react-query";
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useForm } from "react-hook-form";
 
 // components
@@ -16,12 +15,8 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import SelectInput from "./select-input";
 
-import { addApplication } from "@/services/applications.service";
-import { useAddModal } from "@/stores/addModalStore";
-
 // utils
 import { jobSiteOptions, setupOptions } from "./options";
-import { queryClient } from "@/App";
 import { IForm } from "@/types";
 
 // form validation
@@ -31,35 +26,15 @@ import { z } from "zod";
 
 interface Props {
   values: IForm;
+  onSubmit: (data: any) => void;
+  isLoading: boolean;
 }
 
-function ApplicationForm({ values }: Props) {
-  const [isLoading, setIsLoading] = useState(false);
-  const { closeModal } = useAddModal();
-
+function ApplicationForm({ values, onSubmit, isLoading }: Props) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: values,
   });
-
-  const mutation = useMutation({
-    mutationFn: (values: IForm) => addApplication(values),
-    onMutate: () => setIsLoading(true),
-    onSuccess: () => {
-      closeModal();
-      queryClient.invalidateQueries({ queryKey: ["applications"] });
-    },
-    onError: () => {
-      // Display error
-    },
-    onSettled: () => {
-      setIsLoading(false);
-    },
-  });
-
-  const onSubmit = (data: any) => {
-    mutation.mutate(data);
-  };
 
   return (
     <Form {...form}>

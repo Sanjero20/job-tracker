@@ -1,3 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useState } from "react";
+import { useMutation } from "@tanstack/react-query";
+
 import {
   Dialog,
   DialogContent,
@@ -6,12 +10,14 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "../ui/button";
+
 import ApplicationForm from "../form";
-
-import { useAddModal } from "@/stores/addModalStore";
-
-import { IForm } from "@/types";
 import { statusOptions } from "../form/options";
+
+import { addApplication } from "@/services/applications.service";
+import { useAddModal } from "@/stores/addModalStore";
+import { queryClient } from "@/App";
+import { IForm } from "@/types";
 
 const initialState: IForm = {
   status: statusOptions[0],
@@ -27,7 +33,29 @@ const initialState: IForm = {
 };
 
 function AddApplcationModal() {
+  const [isLoading, setIsLoading] = useState(false);
   const { isOpen, toggleModal } = useAddModal();
+
+  const { closeModal } = useAddModal();
+
+  const mutation = useMutation({
+    mutationFn: (values: IForm) => addApplication(values),
+    onMutate: () => setIsLoading(true),
+    onSuccess: () => {
+      closeModal();
+      queryClient.invalidateQueries({ queryKey: ["applications"] });
+    },
+    onError: () => {
+      // Display error
+    },
+    onSettled: () => {
+      setIsLoading(false);
+    },
+  });
+
+  const onSubmit = (data: any) => {
+    mutation.mutate(data);
+  };
 
   return (
     <Dialog open={isOpen} onOpenChange={toggleModal}>
@@ -39,7 +67,11 @@ function AddApplcationModal() {
           <DialogTitle>Add new application</DialogTitle>
         </DialogHeader>
 
-        <ApplicationForm values={initialState} />
+        <ApplicationForm
+          isLoading={isLoading}
+          onSubmit={onSubmit}
+          values={initialState}
+        />
       </DialogContent>
     </Dialog>
   );
