@@ -12,25 +12,12 @@ import {
 import { Button } from "../ui/button";
 
 import ApplicationForm from "../form";
-import { statusOptions } from "../form/options";
+import { initialState } from "../form/initialState";
 
 import { addApplication } from "@/services/applications.service";
 import { useAddModal } from "@/stores/addModalStore";
 import { queryClient } from "@/App";
 import { IForm } from "@/types";
-
-const initialState: IForm = {
-  status: statusOptions[0],
-  position: "",
-  company_name: "",
-  min_compensation: 0,
-  max_compensation: 0,
-  setup: "",
-  application_date: "",
-  site: "",
-  url: "",
-  note: "",
-};
 
 function AddApplcationModal() {
   const [isLoading, setIsLoading] = useState(false);
@@ -71,6 +58,7 @@ function AddApplcationModal() {
           isLoading={isLoading}
           onSubmit={onSubmit}
           values={initialState}
+          type="add"
         />
       </DialogContent>
     </Dialog>
