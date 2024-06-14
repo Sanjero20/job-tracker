@@ -1,4 +1,3 @@
-import { MouseEvent } from "react";
 import { Button } from "@/components/ui/button";
 import { useDeleteModal } from "@/stores/deleteModalStore";
 
@@ -9,8 +8,7 @@ interface Props {
 function DeleteButtonModal({ id }: Props) {
   const { openModal } = useDeleteModal();
 
-  const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
-    e.stopPropagation();
+  const handleClick = () => {
     openModal(id);
   };
 

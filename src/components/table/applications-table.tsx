@@ -52,7 +52,7 @@ function ApplicationsTable({ data, filters }: Props) {
               className="cursor-pointer select-none"
               onClick={() => openModal(application)}
             >
-              <TableCell>
+              <TableCell onClick={(e) => e.stopPropagation()}>
                 <SelectStatus id={application.id} status={application.status} />
               </TableCell>
 
@@ -71,7 +71,7 @@ function ApplicationsTable({ data, filters }: Props) {
                 {moment(application.application_date).format("MMM DD, YYYY")}
               </TableCell>
 
-              <TableCell>
+              <TableCell onClick={(e) => e.stopPropagation()}>
                 <a
                   href={application.url}
                   target="blank"
@@ -82,7 +82,10 @@ function ApplicationsTable({ data, filters }: Props) {
               </TableCell>
 
               {/* Actions */}
-              <TableCell className="flex gap-1">
+              <TableCell
+                className="flex gap-1"
+                onClick={(e) => e.stopPropagation()}
+              >
                 <UpdateButtonModal data={application} />
                 <DeleteButtonModal id={application.id} />
               </TableCell>
