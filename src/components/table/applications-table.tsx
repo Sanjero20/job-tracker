@@ -74,7 +74,7 @@ function ApplicationsTable({ data, filters }: Props) {
               <TableCell onClick={(e) => e.stopPropagation()}>
                 <a
                   href={application.url}
-                  target="blank"
+                  target="_blank"
                   className="hover:underline"
                 >
                   {application.site}

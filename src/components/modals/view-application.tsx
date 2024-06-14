@@ -1,8 +1,9 @@
 import { Dialog, DialogContent, DialogFooter } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Button } from "@/components/ui/button";
 
 import { useViewModal } from "@/stores/viewModalStore";
-import { Button } from "../ui/button";
+import moment from "moment";
 
 function ViewApplicationModal() {
   const { data, isOpen, toggleModal } = useViewModal();
@@ -27,7 +28,9 @@ function ViewApplicationModal() {
             <p>
               Salary: {data.min_compensation} - {data.max_compensation}
             </p>
-            <p>Applied on {data.application_date}</p>
+            <p>
+              Applied on {moment(data.application_date).format("MMMM DD, YYYY")}
+            </p>
           </section>
 
           {/* Note */}
@@ -41,7 +44,9 @@ function ViewApplicationModal() {
           )}
 
           <DialogFooter>
-            <Button className="w-full">View Job Posting</Button>
+            <a href={data.url} target="_blank" className="w-full">
+              <Button className="w-full">View Job Posting</Button>
+            </a>
           </DialogFooter>
         </DialogContent>
       )}
