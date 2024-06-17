@@ -3,7 +3,6 @@ import { useQuery } from "@tanstack/react-query";
 
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { statusOptions, setupOptions } from "@/components/form/options";
-import LogoutButton from "@/components/logout-btn";
 import SelectFilter from "@/components/select-filter";
 import ApplicationsTable from "@/components/table/applications-table";
 
@@ -33,17 +32,11 @@ function MainPage() {
   };
 
   return (
-    <div className="container flex flex-col gap-2 pb-4 pt-2">
-      <header className="flex w-full items-center justify-between">
-        <h1 className="text-xl font-bold">Application Tracker</h1>
-        <LogoutButton />
-      </header>
-
+    <div className="flex flex-col gap-2">
       {/* Utilities */}
       <div className="flex gap-4">
         <AddApplcationModal />
 
-        {/* Filters  */}
         <SelectFilter
           options={statusOptions}
           value={filters.status}

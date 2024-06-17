@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { verifyToken } from "@/services/auth.service";
-import MainLayout from "./layout";
 
 function UnprotectedPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(true);
@@ -24,9 +23,9 @@ function UnprotectedPage() {
   if (isAuthenticated) return;
 
   return (
-    <MainLayout>
+    <div className="flex min-h-screen bg-light">
       <Outlet />
-    </MainLayout>
+    </div>
   );
 }
 

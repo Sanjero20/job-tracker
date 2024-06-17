@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, Outlet } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { verifyToken } from "@/services/auth.service";
-import MainLayout from "./layout";
+import Header from "./header";
 
 function ProtectedPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -31,9 +31,13 @@ function ProtectedPage() {
   if (!isAuthenticated) return;
 
   return (
-    <MainLayout>
-      <Outlet />
-    </MainLayout>
+    <div className="container flex min-h-screen flex-grow flex-col gap-2 bg-light py-2">
+      <Header />
+
+      <div className="grid h-full flex-1 gap-2 pb-2">
+        <Outlet />
+      </div>
+    </div>
   );
 }
 

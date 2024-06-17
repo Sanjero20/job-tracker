@@ -14,10 +14,19 @@ export const routes = createBrowserRouter([
     path: "/",
     element: <UnprotectedPage />,
     children: [
-      { path: "/login", element: <LoginPage /> },
-      { path: "/register", element: <RegisterPage /> },
+      {
+        path: "/login",
+        element: <LoginPage />,
+        loader: () => <>Hello</>,
+      },
+      {
+        path: "/register",
+        element: <RegisterPage />,
+        loader: () => <>Hello</>,
+      },
     ],
   },
+
   // Main
   {
     path: "/",
@@ -26,6 +35,10 @@ export const routes = createBrowserRouter([
       {
         index: true,
         element: <MainPage />,
+      },
+      {
+        path: "/dashboard",
+        element: <></>,
       },
     ],
   },
