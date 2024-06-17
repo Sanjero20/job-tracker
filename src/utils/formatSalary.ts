@@ -6,4 +6,6 @@ export function formatSalary(min: number, max: number) {
   if (min && max) return `${str_min} - ${str_max}`;
 
   if (min == 0 && max > min) return str_max;
+
+  return str_min;
 }
