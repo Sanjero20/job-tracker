@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
+import { Plus } from "lucide-react";
 
 import {
   Dialog,
@@ -47,7 +48,10 @@ function AddApplcationModal() {
   return (
     <Dialog open={isOpen} onOpenChange={toggleModal}>
       <DialogTrigger asChild>
-        <Button>Add Application</Button>
+        <Button className="flex gap-1">
+          <Plus size={20} />
+          New
+        </Button>
       </DialogTrigger>
       <DialogContent className="max-h-[500px] overflow-y-auto">
         <DialogHeader>
