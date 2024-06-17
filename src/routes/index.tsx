@@ -4,9 +4,11 @@ import { createBrowserRouter } from "react-router-dom";
 import ProtectedPage from "@/layouts/protected";
 import UnprotectedPage from "@/layouts/unprotected";
 
-const MainPage = lazy(() => import("@/pages"));
 const RegisterPage = lazy(() => import("@/pages/register"));
 const LoginPage = lazy(() => import("@/pages/login"));
+
+const MainPage = lazy(() => import("@/pages"));
+const DashboardPage = lazy(() => import("@/pages/dashboard"));
 
 export const routes = createBrowserRouter([
   // Auth
@@ -44,7 +46,7 @@ export const routes = createBrowserRouter([
       },
       {
         path: "/dashboard",
-        element: <></>,
+        element: <DashboardPage />,
       },
     ],
   },
