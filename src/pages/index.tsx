@@ -33,7 +33,7 @@ function MainPage() {
   };
 
   return (
-    <div className="container flex flex-col gap-2 py-2">
+    <div className="container flex flex-col gap-2 pb-4 pt-2">
       <header className="flex w-full items-center justify-between">
         <h1 className="text-xl font-bold">Application Tracker</h1>
         <LogoutButton />
@@ -64,7 +64,7 @@ function MainPage() {
       </div>
 
       {/* Table */}
-      <ScrollArea className="h-full max-h-[80vh] rounded bg-background shadow-lg">
+      <ScrollArea className="h-full max-h-full rounded bg-background shadow-lg">
         <ApplicationsTable data={data} filters={filters} />
       </ScrollArea>
 
