@@ -13,32 +13,30 @@ interface Props {
   name: string;
   placeholder: string;
   className?: string;
-  required?: boolean;
 }
 
-function CustomSelect({
+function SelectFilter({
   options,
   value,
   setValue,
   placeholder,
   className,
-  required = false,
   name,
 }: Props) {
   //
   const handleSelect = (value: string) => {
-    const newValue = !required && value === "null" ? "" : value;
+    const newValue = value === "null" ? "" : value;
     setValue(newValue, name);
   };
 
   return (
-    <Select value={value} onValueChange={handleSelect} required={required}>
+    <Select value={value} onValueChange={handleSelect}>
       <SelectTrigger className={className}>
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>
 
       <SelectContent>
-        {!required && value != "" && (
+        {value != "" && (
           <SelectItem value="null" className="font-bold opacity-80">
             None
           </SelectItem>
@@ -54,4 +52,4 @@ function CustomSelect({
   );
 }
 
-export default CustomSelect;
+export default SelectFilter;

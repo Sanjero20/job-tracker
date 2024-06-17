@@ -1,21 +1,21 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 
-import LogoutButton from "@/components/logout-btn";
-import CustomSelect from "@/components/custom-select";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { statusOptions, setupOptions } from "@/components/form/options";
+import LogoutButton from "@/components/logout-btn";
+import SelectFilter from "@/components/select-filter";
 import ApplicationsTable from "@/components/table/applications-table";
 
+// modal components
+import DeleteApplicationModal from "@/components/modals/delete-application";
+import UpdateApplicationModal from "@/components/modals/update-application";
 import AddApplcationModal from "@/components/modals/add-application";
 import ViewApplicationModal from "@/components/modals/view-application";
 
 import { getApplications } from "@/services/applications.service";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import DeleteApplicationModal from "@/components/modals/delete-application";
-import UpdateApplicationModal from "@/components/modals/update-application";
 
 function MainPage() {
-  // Filters
   const [filters, setFilters] = useState({
     status: "",
     setup: "",
@@ -44,7 +44,7 @@ function MainPage() {
         <AddApplcationModal />
 
         {/* Filters  */}
-        <CustomSelect
+        <SelectFilter
           options={statusOptions}
           value={filters.status}
           setValue={handleFilters}
@@ -53,7 +53,7 @@ function MainPage() {
           className="w-[180px]"
         />
 
-        <CustomSelect
+        <SelectFilter
           options={setupOptions}
           value={filters.setup}
           setValue={handleFilters}
