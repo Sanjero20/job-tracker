@@ -1,11 +1,12 @@
+import { lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
 
 import ProtectedPage from "@/layouts/protected";
 import UnprotectedPage from "@/layouts/unprotected";
 
-import MainPage from "@/pages";
-import LoginPage from "@/pages/login";
-import RegisterPage from "@/pages/register";
+const MainPage = lazy(() => import("@/pages"));
+const RegisterPage = lazy(() => import("@/pages/register"));
+const LoginPage = lazy(() => import("@/pages/login"));
 
 export const routes = createBrowserRouter([
   // Auth
