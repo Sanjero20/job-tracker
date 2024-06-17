@@ -1,4 +1,4 @@
-import { lazy } from "react";
+import { Suspense, lazy } from "react";
 import { createBrowserRouter } from "react-router-dom";
 
 import ProtectedPage from "@/layouts/protected";
@@ -16,13 +16,19 @@ export const routes = createBrowserRouter([
     children: [
       {
         path: "/login",
-        element: <LoginPage />,
-        loader: () => <>Hello</>,
+        element: (
+          <Suspense>
+            <LoginPage />,
+          </Suspense>
+        ),
       },
       {
         path: "/register",
-        element: <RegisterPage />,
-        loader: () => <>Hello</>,
+        element: (
+          <Suspense>
+            <RegisterPage />,
+          </Suspense>
+        ),
       },
     ],
   },
