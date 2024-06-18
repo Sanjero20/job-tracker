@@ -1,8 +1,8 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
-function CardSummary() {
+function ApplicationsOverview() {
   return (
-    <Card className="bg-sky-600 text-white">
+    <Card>
       <CardHeader>
         <CardTitle>Dashboard</CardTitle>
       </CardHeader>
@@ -34,4 +34,4 @@ function CardSummary() {
   );
 }
 
-export default CardSummary;
+export default ApplicationsOverview;
