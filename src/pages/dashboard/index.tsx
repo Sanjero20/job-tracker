@@ -1,4 +1,6 @@
-import CardSummary from "@/components/dashboard/summary";
+import CardSummary from "@/components/dashboard/overview";
+import StatusBarGraph from "@/components/dashboard/status-bargraph";
+import { Card } from "@/components/ui/card";
 
 function DashboardPage() {
   return (
@@ -8,43 +10,46 @@ function DashboardPage() {
       </div>
 
       {/* Percentage*/}
-      <div className="col-span-4 h-32 bg-orange-300">
+      <Card className="col-span-4 h-32 p-4">
         <p>Success Rate</p>
 
         <div className="grid h-full grid-cols-2 items-center">
-          <p>Submitted -&gte; Ongoin / Interview</p>
-          <p>Interview -&gte; Offered</p>
+          <p>Submitted -&gt; Ongoin / Interview</p>
+          <p>Interview -&gt; Offered</p>
         </div>
-      </div>
+      </Card>
 
       {/* Interview Schedule Calendar */}
-      <div className="col-span-2 row-span-2 h-64 bg-green-500">
+      <Card className="col-span-2 row-span-2 h-64">
         Calendar View showing upcoming interviews and important dates.
-      </div>
+      </Card>
 
       {/* Graphs */}
-      <div className="col-span-2 row-span-2 bg-yellow-300">
+      <Card className="col-span-3 row-span-2 flex flex-col gap-2 p-4 pb-0 ">
+        <p className="text-center"> Application Distribution</p>
+        <div className="h-full">
+          <StatusBarGraph />
+        </div>
+      </Card>
+
+      <Card className="row-span-2">
         Pie Chart or Doughnut Chart showing the proportion of applications in
         each status (Submitted, In progress, Under Review, Interviewed,
         Rejected, Withdrawn, Offered).
-      </div>
-      <div className="col-span-2 row-span-2 bg-yellow-300">
-        Bar Chart comparing the number of applications in each status for
-        different companies.
-      </div>
+      </Card>
 
       {/*  */}
-      <div className="col-span-2 h-48 bg-violet-600">
+      <Card className="col-span-2 h-48">
         Recent Status Change - Company Name, role, status
-      </div>
+      </Card>
 
-      <div className="col-span-6 h-48 bg-red-400">
+      <Card className="col-span-6 h-48">
         <p>activitiy calendar</p>
         <p>
           Display the activity graphs to show how often does the user applies to
           a job
         </p>
-      </div>
+      </Card>
     </div>
   );
 }
