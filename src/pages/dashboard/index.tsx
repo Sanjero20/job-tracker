@@ -1,54 +1,47 @@
-import CardSummary from "@/components/dashboard/overview";
-import StatusBarGraph from "@/components/dashboard/status-bargraph";
 import { Card } from "@/components/ui/card";
+
+import StatusBarGraph from "@/components/dashboard/status-bargraph";
+import ApplicationsOverview from "@/components/dashboard/overview";
+import InterviewCalendar from "@/components/dashboard/interview-calendar";
 
 function DashboardPage() {
   return (
     <div className="grid h-fit grid-cols-6 gap-4">
-      <div className="col-span-6">
-        <CardSummary />
-      </div>
-
-      {/* Percentage*/}
-      <Card className="col-span-4 h-32 p-4">
-        <p>Success Rate</p>
-
-        <div className="grid h-full grid-cols-2 items-center">
-          <p>Submitted -&gt; Ongoin / Interview</p>
-          <p>Interview -&gt; Offered</p>
-        </div>
-      </Card>
-
-      {/* Interview Schedule Calendar */}
-      <Card className="col-span-2 row-span-2 h-64">
-        Calendar View showing upcoming interviews and important dates.
+      <Card className="col-span-8 flex flex-col gap-4 p-4">
+        <p className="text-xl font-bold">Overview</p>
+        <ApplicationsOverview />
       </Card>
 
       {/* Graphs */}
-      <Card className="col-span-3 row-span-2 flex flex-col gap-2 p-4 pb-0 ">
-        <p className="text-center"> Application Distribution</p>
+      <Card className="col-span-4 row-span-2 flex flex-col gap-2 p-4 pb-0 ">
+        <p className="text-center font-bold"> Application Distribution</p>
         <div className="h-full">
           <StatusBarGraph />
         </div>
       </Card>
 
-      <Card className="row-span-2">
-        Pie Chart or Doughnut Chart showing the proportion of applications in
-        each status (Submitted, In progress, Under Review, Interviewed,
-        Rejected, Withdrawn, Offered).
+      <Card className="col-span-2 p-4">Chart</Card>
+
+      {/* Interview Schedule Calendar */}
+      <Card className="col-span-2 row-span-2 w-fit p-4">
+        <p className="text-center font-bold">Interview Dates</p>
+        <InterviewCalendar />
       </Card>
+
+      <Card className="col-span-2 p-4">Chart</Card>
 
       {/*  */}
-      <Card className="col-span-2 h-48">
-        Recent Status Change - Company Name, role, status
-      </Card>
 
-      <Card className="col-span-6 h-48">
+      <Card className="col-span-4 p-4">
         <p>activitiy calendar</p>
         <p>
           Display the activity graphs to show how often does the user applies to
           a job
         </p>
+      </Card>
+
+      <Card className="col-span-4 p-4">
+        Recent Status Change - Company Name, role, status
       </Card>
     </div>
   );
