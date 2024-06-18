@@ -42,11 +42,23 @@ export const routes = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <MainPage />,
+        element: (
+          <Suspense>
+            <DashboardPage />
+          </Suspense>
+        ),
       },
       {
-        path: "/dashboard",
-        element: <DashboardPage />,
+        path: "/applications",
+        element: (
+          <Suspense>
+            <MainPage />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/interviews",
+        element: <Suspense>Interview List</Suspense>,
       },
     ],
   },
