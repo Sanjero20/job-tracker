@@ -4,9 +4,11 @@ import StatusBarGraph from "@/components/dashboard/status-bargraph";
 import ApplicationsOverview from "@/components/dashboard/overview";
 import InterviewCalendar from "@/components/dashboard/interview-calendar";
 
+import ApplicationsActivity from "@/components/dashboard/application-activity";
+
 function DashboardPage() {
   return (
-    <div className="grid h-fit grid-cols-6 gap-4">
+    <div className="grid h-fit grid-cols-8 gap-4">
       <Card className="col-span-8 flex flex-col gap-4 p-4">
         <p className="text-xl font-bold">Overview</p>
         <ApplicationsOverview />
@@ -31,17 +33,12 @@ function DashboardPage() {
       <Card className="col-span-2 p-4">Chart</Card>
 
       {/*  */}
-
-      <Card className="col-span-4 p-4">
-        <p>activitiy calendar</p>
-        <p>
-          Display the activity graphs to show how often does the user applies to
-          a job
-        </p>
+      <Card className="col-span-6 flex justify-center p-4">
+        <ApplicationsActivity />
       </Card>
 
-      <Card className="col-span-4 p-4">
-        Recent Status Change - Company Name, role, status
+      <Card className="col-span-2 p-4">
+        <p>Recent Status Change - Company Name, role, status k</p>
       </Card>
     </div>
   );
