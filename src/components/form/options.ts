@@ -1,11 +1,9 @@
 export const statusOptions = [
-  "Submitted",
-  "In progress",
-  "Under Review",
+  "Applied",
+  "In Progress",
   "Interviewed",
-  "Rejected",
-  "Withdrawn",
   "Offered",
+  "Not Selected",
 ];
 
 export const setupOptions = ["onsite", "remote", "hybrid"];

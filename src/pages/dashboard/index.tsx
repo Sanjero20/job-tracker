@@ -1,10 +1,9 @@
 import { Card } from "@/components/ui/card";
 
-import StatusBarGraph from "@/components/dashboard/status-bargraph";
-import ApplicationsOverview from "@/components/dashboard/overview";
-import InterviewCalendar from "@/components/dashboard/interview-calendar";
-
-import ApplicationsActivity from "@/components/dashboard/application-activity";
+import StatusBarGraph from "@/pages/dashboard/components/status-bargraph";
+import ApplicationsOverview from "@/pages/dashboard/components/overview";
+import InterviewCalendar from "@/pages/dashboard/components/interview-calendar";
+import ApplicationsActivity from "@/pages/dashboard/components/application-activity";
 
 function DashboardPage() {
   return (
@@ -16,7 +15,7 @@ function DashboardPage() {
 
       {/* Graphs */}
       <Card className="col-span-4 row-span-2 flex flex-col gap-2 p-4 pb-0 ">
-        <p className="text-center font-bold"> Application Distribution</p>
+        <p className="text-center font-bold">Status Distribution</p>
         <div className="h-full">
           <StatusBarGraph />
         </div>

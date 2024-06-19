@@ -7,11 +7,9 @@ import {
   Tooltip,
 } from "recharts";
 
-interface Props {}
-
 const data = [
   {
-    name: "Submitted",
+    name: "Applied",
     count: 100,
   },
   {
@@ -19,28 +17,20 @@ const data = [
     count: 2,
   },
   {
-    name: "Under Review",
-    count: 19,
-  },
-  {
     name: "Interviewed",
     count: 0,
-  },
-  {
-    name: "Rejected",
-    count: 7,
-  },
-  {
-    name: "Withdrawn",
-    count: 5,
   },
   {
     name: "Offer",
     count: 4,
   },
+  {
+    name: "Not Selected",
+    count: 7,
+  },
 ];
 
-function StatusBarGraph({}: Props) {
+function StatusBarGraph() {
   return (
     <ResponsiveContainer width="100%" height="100%">
       <BarChart
