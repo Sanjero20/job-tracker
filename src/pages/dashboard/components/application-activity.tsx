@@ -1,4 +1,6 @@
 import React from "react";
+import { useQuery } from "@tanstack/react-query";
+import moment from "moment";
 
 import ActivityCalendar, {
   BlockElement,
@@ -7,29 +9,26 @@ import ActivityCalendar, {
 
 import { Tooltip as ReactTooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
-import moment from "moment";
 
-const startDate = "2024-01-01";
-const endDate = "2024-12-31";
-
-// Sample data
-const data = [
-  { date: startDate, count: 0, level: 0 },
-  { date: "2024-06-06", count: 1, level: 1 },
-  { date: "2024-06-29", count: 1, level: 1 },
-  { date: endDate, count: 0, level: 0 },
-];
+import { getActivityCalendarData } from "@/services/dashboard.service";
 
 function ApplicationActivity() {
+  const { data, isLoading } = useQuery({
+    queryKey: ["activity"],
+    queryFn: getActivityCalendarData,
+    initialData: [],
+  });
+
   return (
     <>
       <ActivityCalendar
+        loading={isLoading}
         data={data}
         showWeekdayLabels
         blockSize={12}
         blockMargin={4}
         labels={{
-          totalCount: "{{count}} Applications submitted in {{year}}",
+          totalCount: "{{count}} applications submitted in past year",
         }}
         renderBlock={(block: BlockElement, activity: Activity) =>
           React.cloneElement(block, {
