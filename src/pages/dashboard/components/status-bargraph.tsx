@@ -1,3 +1,5 @@
+import { getStatusGraphData } from "@/services/dashboard.service";
+import { useQuery } from "@tanstack/react-query";
 import {
   ResponsiveContainer,
   BarChart,
@@ -7,30 +9,12 @@ import {
   Tooltip,
 } from "recharts";
 
-const data = [
-  {
-    name: "Applied",
-    count: 100,
-  },
-  {
-    name: "In progress",
-    count: 2,
-  },
-  {
-    name: "Interviewed",
-    count: 0,
-  },
-  {
-    name: "Offer",
-    count: 4,
-  },
-  {
-    name: "Not Selected",
-    count: 7,
-  },
-];
-
 function StatusBarGraph() {
+  const { data } = useQuery({
+    queryKey: ["status-graph"],
+    queryFn: getStatusGraphData,
+  });
+
   return (
     <ResponsiveContainer width="100%" height="100%">
       <BarChart
@@ -43,7 +27,7 @@ function StatusBarGraph() {
         }}
       >
         <XAxis dataKey={"name"} style={{ fontSize: 12 }} />
-        <YAxis type="number" />
+        <YAxis type="number" allowDecimals={false} />
 
         <Tooltip />
         <Bar
