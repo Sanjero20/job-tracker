@@ -6,6 +6,7 @@ import UnprotectedPage from "@/layouts/unprotected";
 
 // Fallback pages
 import DashboardFallbackPage from "@/pages/dashboard/fallback";
+import ApplicationFallbackPage from "@/pages/applications/fallback";
 
 const RegisterPage = lazy(() => import("@/pages/register"));
 const LoginPage = lazy(() => import("@/pages/login"));
@@ -54,7 +55,7 @@ export const routes = createBrowserRouter([
       {
         path: "/applications",
         element: (
-          <Suspense>
+          <Suspense fallback={<ApplicationFallbackPage />}>
             <ApplicationsPage />
           </Suspense>
         ),
