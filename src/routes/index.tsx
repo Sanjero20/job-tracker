@@ -7,8 +7,8 @@ import UnprotectedPage from "@/layouts/unprotected";
 const RegisterPage = lazy(() => import("@/pages/register"));
 const LoginPage = lazy(() => import("@/pages/login"));
 
-const MainPage = lazy(() => import("@/pages"));
 const DashboardPage = lazy(() => import("@/pages/dashboard"));
+const ApplicationsPage = lazy(() => import("@/pages/applications"));
 
 export const routes = createBrowserRouter([
   // Auth
@@ -52,7 +52,7 @@ export const routes = createBrowserRouter([
         path: "/applications",
         element: (
           <Suspense>
-            <MainPage />
+            <ApplicationsPage />
           </Suspense>
         ),
       },
