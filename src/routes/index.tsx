@@ -4,6 +4,9 @@ import { createBrowserRouter } from "react-router-dom";
 import ProtectedPage from "@/layouts/protected";
 import UnprotectedPage from "@/layouts/unprotected";
 
+// Fallback pages
+import DashboardFallbackPage from "@/pages/dashboard/fallback";
+
 const RegisterPage = lazy(() => import("@/pages/register"));
 const LoginPage = lazy(() => import("@/pages/login"));
 
@@ -43,7 +46,7 @@ export const routes = createBrowserRouter([
       {
         index: true,
         element: (
-          <Suspense>
+          <Suspense fallback={<DashboardFallbackPage />}>
             <DashboardPage />
           </Suspense>
         ),
