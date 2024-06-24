@@ -31,11 +31,13 @@ function ProtectedPage() {
   if (!isAuthenticated) return;
 
   return (
-    <div className="container flex min-h-screen flex-grow flex-col gap-2 bg-light py-2">
-      <Header />
+    <div className="bg-light">
+      <div className="container flex min-h-screen flex-grow flex-col gap-2 py-2">
+        <Header />
 
-      <div className="grid h-full flex-1 gap-2 pb-2">
-        <Outlet />
+        <main className="grid h-full flex-1 gap-2 pb-2">
+          <Outlet />
+        </main>
       </div>
     </div>
   );
