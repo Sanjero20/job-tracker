@@ -57,7 +57,7 @@ function MainPage() {
       </div>
 
       {/* Table */}
-      <ScrollArea className="h-full max-h-full rounded bg-background shadow-lg">
+      <ScrollArea className="h-[80vh] max-h-[625px] rounded bg-background shadow-lg">
         <ApplicationsTable data={data} filters={filters} />
       </ScrollArea>
 
