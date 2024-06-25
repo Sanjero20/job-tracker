@@ -7,12 +7,15 @@ import UnprotectedPage from "@/layouts/unprotected";
 // Fallback pages
 import DashboardFallbackPage from "@/pages/dashboard/fallback";
 import ApplicationFallbackPage from "@/pages/applications/fallback";
+import InterviewFallbackPage from "@/pages/interviews/fallback";
 
+// Lazy loaded page
 const RegisterPage = lazy(() => import("@/pages/register"));
 const LoginPage = lazy(() => import("@/pages/login"));
 
 const DashboardPage = lazy(() => import("@/pages/dashboard"));
 const ApplicationsPage = lazy(() => import("@/pages/applications"));
+const InterviewPage = lazy(() => import("@/pages/interviews"));
 
 export const routes = createBrowserRouter([
   // Auth
@@ -62,7 +65,11 @@ export const routes = createBrowserRouter([
       },
       {
         path: "/interviews",
-        element: <Suspense>Interview List</Suspense>,
+        element: (
+          <Suspense fallback={<InterviewFallbackPage />}>
+            <InterviewPage />
+          </Suspense>
+        ),
       },
     ],
   },
