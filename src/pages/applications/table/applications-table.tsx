@@ -6,14 +6,14 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "../ui/table";
-import SelectStatus from "./select-status";
+} from "@/components/ui/table";
 
-import { useViewModal } from "@/stores/viewModalStore";
-import { IApplication } from "@/types";
+import SelectStatus from "./select-status";
 import DeleteButtonModal from "./action-buttons/delete-button";
 import UpdateButtonModal from "./action-buttons/update-button";
+
 import { formatSalary } from "@/utils/formatSalary";
+import { IApplication, ModalMode } from "@/types";
 
 interface Props {
   data: IApplication[];
@@ -21,10 +21,21 @@ interface Props {
     setup: string;
     status: string;
   };
+
+  openModal: (mode: ModalMode) => void;
+  handleSelectedData: (data: IApplication) => void;
 }
 
-function ApplicationsTable({ data, filters }: Props) {
-  const { openModal } = useViewModal();
+function ApplicationsTable({
+  data,
+  filters,
+  openModal,
+  handleSelectedData,
+}: Props) {
+  const handleClick = (data: IApplication) => {
+    openModal("read");
+    handleSelectedData(data);
+  };
 
   return (
     <Table className="relative h-full w-full">
@@ -51,7 +62,7 @@ function ApplicationsTable({ data, filters }: Props) {
             <TableRow
               key={application.id}
               className="cursor-pointer select-none"
-              onClick={() => openModal(application)}
+              onClick={() => handleClick(application)}
             >
               <TableCell onClick={(e) => e.stopPropagation()}>
                 <SelectStatus id={application.id} status={application.status} />
