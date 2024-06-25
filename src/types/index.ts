@@ -16,3 +16,5 @@ export interface IApplication extends IForm {
   created_at: Date;
   updated_at: Date;
 }
+
+export type ModalMode = "create" | "read" | "update" | "delete" | "";
