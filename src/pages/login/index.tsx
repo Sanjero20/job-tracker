@@ -59,7 +59,7 @@ function LoginPage() {
           {error && <p className="text-sm text-error">* {error}</p>}
 
           <Button type="submit" disabled={isLoading}>
-            {isLoading ? "Loading..." : "Login"}
+            {isLoading ? "Logging in..." : "Login"}
           </Button>
         </form>
       </FormContainer>
