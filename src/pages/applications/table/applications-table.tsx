@@ -9,11 +9,10 @@ import {
 } from "@/components/ui/table";
 
 import SelectStatus from "./select-status";
-import DeleteButtonModal from "./action-buttons/delete-button";
-import UpdateButtonModal from "./action-buttons/update-button";
 
 import { formatSalary } from "@/utils/formatSalary";
 import { IApplication, ModalMode } from "@/types";
+import { Button } from "@/components/ui/button";
 
 interface Props {
   data: IApplication[];
@@ -32,8 +31,8 @@ function ApplicationsTable({
   openModal,
   handleSelectedData,
 }: Props) {
-  const handleClick = (data: IApplication) => {
-    openModal("read");
+  const handleClick = (mode: ModalMode, data: IApplication) => {
+    openModal(mode);
     handleSelectedData(data);
   };
 
@@ -62,7 +61,7 @@ function ApplicationsTable({
             <TableRow
               key={application.id}
               className="cursor-pointer select-none"
-              onClick={() => handleClick(application)}
+              onClick={() => handleClick("read", application)}
             >
               <TableCell onClick={(e) => e.stopPropagation()}>
                 <SelectStatus id={application.id} status={application.status} />
@@ -98,11 +97,22 @@ function ApplicationsTable({
 
               {/* Actions */}
               <TableCell
-                className="flex gap-1"
+                className="grid grid-cols-2 gap-1"
                 onClick={(e) => e.stopPropagation()}
               >
-                <UpdateButtonModal data={application} />
-                <DeleteButtonModal id={application.id} />
+                <Button
+                  variant={"outline"}
+                  onClick={() => handleClick("update", application)}
+                >
+                  Edit
+                </Button>
+
+                <Button
+                  variant={"outline"}
+                  onClick={() => handleClick("delete", application)}
+                >
+                  Delete
+                </Button>
               </TableCell>
             </TableRow>
           ))}

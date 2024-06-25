@@ -1,24 +1,22 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 
+import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { statusOptions, setupOptions } from "@/components/form/options";
 import SelectFilter from "@/components/select-filter";
 
 import ApplicationsTable from "./table/applications-table";
-
-// modal components
-import DeleteApplicationModal from "@/components/modals/delete-application";
-import UpdateApplicationModal from "@/components/modals/update-application";
-// import AddApplcationModal from "@/components/modals/add-application";
-// import ViewApplicationModal from "@/components/modals/view-application";
-
 import { getApplications } from "@/services/applications.service";
+
+// Modals
 import CustomModal from "@/components/custom-modal";
-import { Button } from "@/components/ui/button";
+import ViewJobDetails from "./modals/view";
+import CreateApplicationModal from "./modals/create";
 
 import { IApplication, ModalMode } from "@/types";
-import ViewJobDetails from "./modals/view";
+import UpdateApplicationModal from "./modals/update";
+import DeleteApplicationModal from "./modals/delete";
 
 function MainPage() {
   const [mode, setMode] = useState<ModalMode>("");
@@ -46,31 +44,41 @@ function MainPage() {
     setup: "",
   });
 
+  const handleFilters = (value: string, name: string) => {
+    const newFilters = { ...filters, [name]: value };
+    setFilters(newFilters);
+  };
+
   const { data } = useQuery({
     queryKey: ["applications"],
     queryFn: getApplications,
     initialData: [],
   });
 
-  const handleFilters = (value: string, name: string) => {
-    const newFilters = { ...filters, [name]: value };
-    setFilters(newFilters);
-  };
-
   let component = null;
 
   switch (mode) {
     case "create":
-      component = <>Create</>;
+      component = <CreateApplicationModal closeModal={closeModal} />;
       break;
     case "read":
-      component = data ? <ViewJobDetails data={selectedData} /> : "";
+      component = selectedData && <ViewJobDetails data={selectedData} />;
       break;
     case "update":
-      component = <>Update</>;
+      component = selectedData && (
+        <UpdateApplicationModal
+          selectedData={selectedData}
+          closeModal={closeModal}
+        />
+      );
       break;
     case "delete":
-      component = <>Delete</>;
+      component = selectedData && (
+        <DeleteApplicationModal
+          selectedData={selectedData}
+          closeModal={closeModal}
+        />
+      );
       break;
     default:
       component = null;
@@ -111,11 +119,6 @@ function MainPage() {
           handleSelectedData={handleSelectedData}
         />
       </ScrollArea>
-
-      {/* Modals */}
-      {/* <ViewApplicationModal /> */}
-      <UpdateApplicationModal />
-      <DeleteApplicationModal />
 
       <CustomModal open={showModal} onOpenChange={closeModal}>
         {component}
