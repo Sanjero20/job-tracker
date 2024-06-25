@@ -1,13 +1,18 @@
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 
-import { DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import {
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { initialState } from "@/components/form/initialState";
 import ApplicationForm from "@/components/form";
 
 import { addApplication } from "@/services/applications.service";
 import { IForm } from "@/types";
 import { queryClient } from "@/App";
+import { Button } from "@/components/ui/button";
 
 interface Props {
   closeModal: () => void;
@@ -41,11 +46,21 @@ function CreateApplicationModal({ closeModal }: Props) {
       </DialogHeader>
 
       <ApplicationForm
-        isLoading={isLoading}
+        formId={"add-application-form"}
         onSubmit={onSubmit}
         values={initialState}
-        type="add"
-      />
+      >
+        <DialogFooter>
+          <Button
+          className="w-full"
+            type="submit"
+            form="add-application-form"
+            disabled={isLoading}
+          >
+            Submit
+          </Button>
+        </DialogFooter>
+      </ApplicationForm>
     </>
   );
 }

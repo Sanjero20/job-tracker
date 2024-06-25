@@ -11,12 +11,13 @@ import { getApplications } from "@/services/applications.service";
 
 // Modals
 import CustomModal from "@/components/custom-modal";
+
 import ViewJobDetails from "./modals/view";
 import CreateApplicationModal from "./modals/create";
-
-import { IApplication, ModalMode } from "@/types";
 import UpdateApplicationModal from "./modals/update";
 import DeleteApplicationModal from "./modals/delete";
+
+import { IApplication, ModalMode } from "@/types";
 
 function MainPage() {
   const [mode, setMode] = useState<ModalMode>("");

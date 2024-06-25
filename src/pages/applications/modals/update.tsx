@@ -1,6 +1,11 @@
 import ApplicationForm from "@/components/form";
 
-import { DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import {
+  DialogClose,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 import { initialState } from "@/components/form/initialState";
 import { IApplication, IForm } from "@/types";
@@ -8,6 +13,7 @@ import { useState } from "react";
 import { queryClient } from "@/App";
 import { updateApplicationById } from "@/services/applications.service";
 import { useMutation } from "@tanstack/react-query";
+import { Button } from "@/components/ui/button";
 
 interface Props {
   selectedData: IApplication;
@@ -50,11 +56,22 @@ function UpdateApplicationModal({ selectedData, closeModal }: Props) {
       </DialogHeader>
 
       <ApplicationForm
-        isLoading={isLoading}
+        formId="update-application-form"
         onSubmit={onSubmit}
         values={selectedData || initialState}
-        type="update"
-      />
+      >
+        <DialogFooter className="grid grid-cols-2">
+          <DialogClose asChild>
+            <Button variant={"outline"} disabled={isLoading}>
+              Cancel
+            </Button>
+          </DialogClose>
+
+          <Button form="update-application-form" disabled={isLoading}>
+            Update
+          </Button>
+        </DialogFooter>
+      </ApplicationForm>
     </>
   );
 }
