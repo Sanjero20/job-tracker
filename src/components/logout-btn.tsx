@@ -42,7 +42,6 @@ function LogoutButton() {
           <Button variant="destructive" onClick={handleLogout}>
             Logout
           </Button>
-          ;
         </DialogFooter>
       </DialogContent>
     </Dialog>
