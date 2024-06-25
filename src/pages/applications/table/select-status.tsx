@@ -7,9 +7,9 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../ui/select";
+} from "../../../components/ui/select";
 
-import { statusOptions } from "../form/options";
+import { statusOptions } from "../../../components/form/options";
 import { updateStatus } from "@/services/applications.service";
 import { queryClient } from "@/App";
 

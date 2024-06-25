@@ -6,14 +6,13 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "../ui/table";
+} from "@/components/ui/table";
+
 import SelectStatus from "./select-status";
 
-import { useViewModal } from "@/stores/viewModalStore";
-import { IApplication } from "@/types";
-import DeleteButtonModal from "./action-buttons/delete-button";
-import UpdateButtonModal from "./action-buttons/update-button";
 import { formatSalary } from "@/utils/formatSalary";
+import { IApplication, ModalMode } from "@/types";
+import { Button } from "@/components/ui/button";
 
 interface Props {
   data: IApplication[];
@@ -21,10 +20,21 @@ interface Props {
     setup: string;
     status: string;
   };
+
+  openModal: (mode: ModalMode) => void;
+  handleSelectedData: (data: IApplication) => void;
 }
 
-function ApplicationsTable({ data, filters }: Props) {
-  const { openModal } = useViewModal();
+function ApplicationsTable({
+  data,
+  filters,
+  openModal,
+  handleSelectedData,
+}: Props) {
+  const handleClick = (mode: ModalMode, data: IApplication) => {
+    openModal(mode);
+    handleSelectedData(data);
+  };
 
   return (
     <Table className="relative h-full w-full">
@@ -51,7 +61,7 @@ function ApplicationsTable({ data, filters }: Props) {
             <TableRow
               key={application.id}
               className="cursor-pointer select-none"
-              onClick={() => openModal(application)}
+              onClick={() => handleClick("read", application)}
             >
               <TableCell onClick={(e) => e.stopPropagation()}>
                 <SelectStatus id={application.id} status={application.status} />
@@ -87,11 +97,22 @@ function ApplicationsTable({ data, filters }: Props) {
 
               {/* Actions */}
               <TableCell
-                className="flex gap-1"
+                className="grid grid-cols-2 gap-1"
                 onClick={(e) => e.stopPropagation()}
               >
-                <UpdateButtonModal data={application} />
-                <DeleteButtonModal id={application.id} />
+                <Button
+                  variant={"outline"}
+                  onClick={() => handleClick("update", application)}
+                >
+                  Edit
+                </Button>
+
+                <Button
+                  variant={"outline"}
+                  onClick={() => handleClick("delete", application)}
+                >
+                  Delete
+                </Button>
               </TableCell>
             </TableRow>
           ))}
