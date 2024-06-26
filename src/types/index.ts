@@ -1,3 +1,5 @@
+export type ModalMode = "create" | "read" | "update" | "delete" | "";
+
 export interface IForm {
   status: string;
   company_name: string;
@@ -17,4 +19,10 @@ export interface IApplication extends IForm {
   updated_at: Date;
 }
 
-export type ModalMode = "create" | "read" | "update" | "delete" | "";
+export interface IInterview {
+  application_id: number;
+  company_name: string;
+  position: string;
+  schedule: string;
+  link: string;
+}
