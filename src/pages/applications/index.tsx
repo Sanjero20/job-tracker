@@ -15,7 +15,7 @@ import ModalManager from "./modals/modal-manager";
 
 import { IApplication, ModalMode } from "@/types";
 
-function MainPage() {
+function ApplicationsPage() {
   const [mode, setMode] = useState<ModalMode>("");
   const [showModal, setShowModal] = useState(false);
   const [selectedData, setSelectedData] = useState<IApplication | null>(null);
@@ -51,8 +51,6 @@ function MainPage() {
     queryFn: getApplications,
     initialData: [],
   });
-
-  console.log(mode);
 
   return (
     <div className="flex flex-col gap-2">
@@ -98,4 +96,4 @@ function MainPage() {
   );
 }
 
-export default MainPage;
+export default ApplicationsPage;
