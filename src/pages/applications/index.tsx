@@ -9,13 +9,9 @@ import SelectFilter from "@/components/select-filter";
 import ApplicationsTable from "./table/applications-table";
 import { getApplications } from "@/services/applications.service";
 
-// Modals
+// Modal
 import CustomModal from "@/components/custom-modal";
-
-import ViewJobDetails from "./modals/view";
-import CreateApplicationModal from "./modals/create";
-import UpdateApplicationModal from "./modals/update";
-import DeleteApplicationModal from "./modals/delete";
+import ModalManager from "./modals/modal-manager";
 
 import { IApplication, ModalMode } from "@/types";
 
@@ -56,34 +52,7 @@ function MainPage() {
     initialData: [],
   });
 
-  let component = null;
-
-  switch (mode) {
-    case "create":
-      component = <CreateApplicationModal closeModal={closeModal} />;
-      break;
-    case "read":
-      component = selectedData && <ViewJobDetails data={selectedData} />;
-      break;
-    case "update":
-      component = selectedData && (
-        <UpdateApplicationModal
-          selectedData={selectedData}
-          closeModal={closeModal}
-        />
-      );
-      break;
-    case "delete":
-      component = selectedData && (
-        <DeleteApplicationModal
-          selectedData={selectedData}
-          closeModal={closeModal}
-        />
-      );
-      break;
-    default:
-      component = null;
-  }
+  console.log(mode);
 
   return (
     <div className="flex flex-col gap-2">
@@ -121,8 +90,9 @@ function MainPage() {
         />
       </ScrollArea>
 
+      {/* Render modal based on mode */}
       <CustomModal open={showModal} onOpenChange={closeModal}>
-        {component}
+        <ModalManager mode={mode} data={selectedData} closeModal={closeModal} />
       </CustomModal>
     </div>
   );

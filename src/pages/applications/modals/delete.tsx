@@ -15,14 +15,14 @@ import { deleteApplicationById } from "@/services/applications.service";
 
 interface Props {
   closeModal: () => void;
-  selectedData: IApplication;
+  data: IApplication;
 }
 
-function DeleteApplicationModal({ selectedData, closeModal }: Props) {
+function DeleteApplicationModal({ data, closeModal }: Props) {
   const mutation = useMutation({
     mutationFn: async () => {
-      if (selectedData.id) {
-        return deleteApplicationById(selectedData.id);
+      if (data.id) {
+        return deleteApplicationById(data.id);
       } else {
         return null;
       }

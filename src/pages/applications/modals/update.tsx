@@ -16,17 +16,17 @@ import { useMutation } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 
 interface Props {
-  selectedData: IApplication;
+  data: IApplication;
   closeModal: () => void;
 }
 
-function UpdateApplicationModal({ selectedData, closeModal }: Props) {
+function UpdateApplicationModal({ data, closeModal }: Props) {
   const [isLoading, setIsLoading] = useState(false);
 
   const mutation = useMutation({
     mutationFn: async (values: IForm) => {
-      if (selectedData) {
-        return updateApplicationById(selectedData.id, values);
+      if (data) {
+        return updateApplicationById(data.id, values);
       } else {
         return null;
       }
@@ -58,7 +58,7 @@ function UpdateApplicationModal({ selectedData, closeModal }: Props) {
       <ApplicationForm
         formId="update-application-form"
         onSubmit={onSubmit}
-        values={selectedData || initialState}
+        values={data || initialState}
       >
         <DialogFooter className="grid grid-cols-2">
           <DialogClose asChild>

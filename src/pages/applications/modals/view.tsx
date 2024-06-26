@@ -10,7 +10,7 @@ interface Props {
   data: IApplication;
 }
 
-function ViewJobDetails({ data }: Props) {
+function ViewApplicationModal({ data }: Props) {
   const salary =
     data && formatSalary(data.min_compensation, data.max_compensation);
 
@@ -54,4 +54,4 @@ function ViewJobDetails({ data }: Props) {
   );
 }
 
-export default ViewJobDetails;
+export default ViewApplicationModal;
