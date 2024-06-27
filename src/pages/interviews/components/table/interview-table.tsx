@@ -18,10 +18,12 @@ function InterviewTable({ data, onRowClick }: Props) {
   return (
     <Table className="w-full">
       <TableHeader>
-        <TableHead>Company</TableHead>
-        <TableHead>Role</TableHead>
-        <TableHead>Schedule</TableHead>
-        <TableHead>Link</TableHead>
+        <TableRow>
+          <TableHead>Company</TableHead>
+          <TableHead>Role</TableHead>
+          <TableHead>Schedule</TableHead>
+          <TableHead>Link</TableHead>
+        </TableRow>
       </TableHeader>
 
       <TableBody>
