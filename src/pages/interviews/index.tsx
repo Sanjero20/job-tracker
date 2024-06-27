@@ -31,7 +31,6 @@ function InterviewPage() {
   return (
     <div className="flex gap-4">
       {/*  */}
-
       <Card className="flex-1">
         <InterviewTable data={data} onRowClick={openModal} />
       </Card>
@@ -40,7 +39,11 @@ function InterviewPage() {
 
       {/* Modal */}
       <CustomModal open={showModal} onOpenChange={closeModal}>
-        {selectedData ? <InterviewScheduleForm data={selectedData} /> : <></>}
+        {selectedData ? (
+          <InterviewScheduleForm data={selectedData} closeModal={closeModal} />
+        ) : (
+          <></>
+        )}
       </CustomModal>
     </div>
   );

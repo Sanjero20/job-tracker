@@ -20,7 +20,7 @@ export interface IApplication extends IForm {
 }
 
 export interface IInterview {
-  application_id: number;
+  job_id: number;
   company_name: string;
   position: string;
   schedule: string;

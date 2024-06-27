@@ -1,15 +1,21 @@
+import { ChangeEvent, FormEvent, useState } from "react";
+import { useMutation } from "@tanstack/react-query";
+
 import { DialogClose, DialogFooter } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+
 import { IInterview } from "@/types";
-import { ChangeEvent, FormEvent, useState } from "react";
+import { updateSchedule } from "@/services/interviews.service";
+import { queryClient } from "@/App";
 
 interface Props {
   data: IInterview;
+  closeModal: () => void;
 }
 
-function InterviewScheduleForm({ data }: Props) {
+function InterviewScheduleForm({ data, closeModal }: Props) {
   const [values, setValues] = useState(data);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -17,8 +23,18 @@ function InterviewScheduleForm({ data }: Props) {
     setValues({ ...values, [name]: value });
   };
 
+  const mutation = useMutation({
+    mutationFn: () => updateSchedule(values),
+    onMutate: () => console.log(),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["ongoing-applications"] });
+      closeModal();
+    },
+  });
+
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
+    mutation.mutate();
   };
 
   return (

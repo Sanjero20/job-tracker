@@ -30,7 +30,7 @@ function InterviewTable({ data, onRowClick }: Props) {
         {data &&
           data.map((item) => (
             <TableRow
-              key={item.application_id}
+              key={item.job_id}
               onClick={() => onRowClick(item)}
               className="cursor-pointer select-none"
             >
