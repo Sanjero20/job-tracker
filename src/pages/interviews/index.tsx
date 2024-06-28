@@ -3,12 +3,13 @@ import { useQuery } from "@tanstack/react-query";
 
 import { Card } from "@/components/ui/card";
 import InterviewTable from "./components/table/interview-table";
+import InterviewCalendar from "./components/interview-calendar";
+import InterviewScheduleForm from "./components/form";
 import CustomModal from "@/components/custom-modal";
 
 import { getOngoingApplications } from "@/services/interviews.service";
 import { IInterview } from "@/types";
-import InterviewScheduleForm from "./components/form";
-import InterviewCalendar from "./components/interview-calendar";
+import moment from "moment";
 
 function InterviewPage() {
   const [selectedDay, setSelectedDay] = useState<Date | null>(null);
@@ -24,8 +25,16 @@ function InterviewPage() {
     setShowModal(false);
   };
 
-  const handleSelectedDate = (date: Date | null) => {
-    setSelectedDay(date);
+  const handleSelectedDay = (date: Date) => {
+    const pre = moment(selectedDay).format("YYYY-MM-DD");
+    const now = moment(date).format("YYYY-MM-DD");
+
+    // Toggle selected data
+    if (pre === now) {
+      setSelectedDay(null);
+    } else {
+      setSelectedDay(date);
+    }
   };
 
   const { data } = useQuery({
@@ -49,7 +58,7 @@ function InterviewPage() {
         <InterviewCalendar
           data={data}
           selectedDate={selectedDay}
-          setSelectedDate={handleSelectedDate}
+          handleSelect={handleSelectedDay}
         />
       </Card>
 

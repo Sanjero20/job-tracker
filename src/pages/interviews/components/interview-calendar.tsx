@@ -4,23 +4,16 @@ import { IInterview } from "@/types";
 interface Props {
   data: IInterview[];
   selectedDate: Date | null;
-  setSelectedDate: (date: Date | null) => void;
+  handleSelect: (date: Date) => void;
 }
 
-function InterviewCalendar({ data, selectedDate, setSelectedDate }: Props) {
+function InterviewCalendar({ data, selectedDate, handleSelect }: Props) {
   const bookedDays = data.map((item) => new Date(item.schedule) || null);
-
-  const handleDayClick = (day: Date) => {
-    if (day == selectedDate) {
-      setSelectedDate(null);
-    }
-
-    setSelectedDate(day);
-  };
 
   return (
     <Calendar
       mode="multiple"
+      onDayClick={handleSelect}
       modifiers={{
         booked: bookedDays,
         selected: selectedDate ? [selectedDate] : [],
@@ -35,7 +28,6 @@ function InterviewCalendar({ data, selectedDate, setSelectedDate }: Props) {
           color: "white",
         },
       }}
-      onDayClick={handleDayClick}
     />
   );
 }
