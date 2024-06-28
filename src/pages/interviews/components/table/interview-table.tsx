@@ -12,9 +12,10 @@ import moment from "moment";
 interface Props {
   data: IInterview[];
   onRowClick: (data: IInterview) => void;
+  selectedDate: Date | null;
 }
 
-function InterviewTable({ data, onRowClick }: Props) {
+function InterviewTable({ data, onRowClick, selectedDate }: Props) {
   return (
     <Table className="w-full">
       <TableHeader>
@@ -25,14 +26,13 @@ function InterviewTable({ data, onRowClick }: Props) {
           <TableHead>Link</TableHead>
         </TableRow>
       </TableHeader>
-
       <TableBody>
         {data &&
           data.map((item) => (
             <TableRow
               key={item.job_id}
               onClick={() => onRowClick(item)}
-              className="cursor-pointer select-none"
+              className={`${moment(selectedDate).format("YYYY-MM-DD") == item.schedule ? "bg-sky-500" : ""} cursor-pointer select-none`}
             >
               <TableCell>{item.company_name}</TableCell>
               <TableCell>{item.position}</TableCell>

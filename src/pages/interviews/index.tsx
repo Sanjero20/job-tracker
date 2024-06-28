@@ -8,8 +8,10 @@ import CustomModal from "@/components/custom-modal";
 import { getOngoingApplications } from "@/services/interviews.service";
 import { IInterview } from "@/types";
 import InterviewScheduleForm from "./components/form";
+import InterviewCalendar from "./components/interview-calendar";
 
 function InterviewPage() {
+  const [selectedDay, setSelectedDay] = useState<Date | null>(null);
   const [selectedData, setSelectedData] = useState<IInterview | null>(null);
   const [showModal, setShowModal] = useState(false);
 
@@ -22,6 +24,10 @@ function InterviewPage() {
     setShowModal(false);
   };
 
+  const handleSelectedDate = (date: Date | null) => {
+    setSelectedDay(date);
+  };
+
   const { data } = useQuery({
     queryKey: ["ongoing-applications"],
     queryFn: getOngoingApplications,
@@ -32,10 +38,20 @@ function InterviewPage() {
     <div className="flex gap-4">
       {/*  */}
       <Card className="flex-1">
-        <InterviewTable data={data} onRowClick={openModal} />
+        <InterviewTable
+          data={data}
+          onRowClick={openModal}
+          selectedDate={selectedDay}
+        />
       </Card>
 
-      <Card className="h-2/3 w-1/4">Calendar</Card>
+      <Card className="h-fit w-fit px-4">
+        <InterviewCalendar
+          data={data}
+          selectedDate={selectedDay}
+          setSelectedDate={handleSelectedDate}
+        />
+      </Card>
 
       {/* Modal */}
       <CustomModal open={showModal} onOpenChange={closeModal}>
