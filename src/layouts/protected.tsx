@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import { useNavigate, Outlet } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { verifyToken } from "@/services/auth.service";
-import Header from "./header";
+import Sidebar from "./sidebar";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 function ProtectedPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -31,13 +32,13 @@ function ProtectedPage() {
   if (!isAuthenticated) return;
 
   return (
-    <div className="bg-light">
-      <div className="container flex min-h-screen flex-grow flex-col gap-2 py-2">
-        <Header />
+    <div className="bg-light-2">
+      <div className="bg-dark-2 container flex h-screen gap-4 overflow-hidden p-4">
+        <Sidebar />
 
-        <main className="grid h-full flex-1 gap-2 pb-2">
+        <ScrollArea className="w-full">
           <Outlet />
-        </main>
+        </ScrollArea>
       </div>
     </div>
   );

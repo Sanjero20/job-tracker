@@ -25,7 +25,7 @@ function LogoutButton() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button>Logout</Button>
+        <Button className="w-full">Logout</Button>
       </DialogTrigger>
 
       <DialogContent>
