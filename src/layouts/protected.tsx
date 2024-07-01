@@ -33,7 +33,7 @@ function ProtectedPage() {
 
   return (
     <div className="bg-light-2">
-      <div className="bg-dark-2 container flex h-screen gap-4 overflow-hidden p-4">
+      <div className="container flex h-screen gap-4 overflow-hidden p-4">
         <Sidebar />
 
         <ScrollArea className="w-full">
