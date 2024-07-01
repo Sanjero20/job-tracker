@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Calendar } from "../../../components/ui/calendar";
+import { Calendar } from "@/components/ui/calendar";
 
 function InterviewCalendar() {
   const [dates, setDates] = useState<Date[]>([
