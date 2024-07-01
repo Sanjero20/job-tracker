@@ -25,7 +25,7 @@ function ApplicationActivity() {
         loading={isLoading}
         data={data}
         showWeekdayLabels
-        blockSize={12}
+        blockSize={14}
         blockMargin={4}
         labels={{
           totalCount: "{{count}} applications submitted in past year",
