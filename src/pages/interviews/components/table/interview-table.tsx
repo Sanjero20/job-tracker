@@ -17,8 +17,8 @@ interface Props {
 
 function InterviewTable({ data, onRowClick, selectedDate }: Props) {
   return (
-    <Table className="w-full">
-      <TableHeader>
+    <Table className="relative w-full">
+      <TableHeader className="sticky top-0 bg-white">
         <TableRow>
           <TableHead>Company</TableHead>
           <TableHead>Role</TableHead>

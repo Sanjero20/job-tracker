@@ -10,6 +10,7 @@ import CustomModal from "@/components/custom-modal";
 import { getOngoingApplications } from "@/services/interviews.service";
 import { IInterview } from "@/types";
 import moment from "moment";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 function InterviewPage() {
   const [selectedDay, setSelectedDay] = useState<Date | null>(null);
@@ -44,14 +45,16 @@ function InterviewPage() {
   });
 
   return (
-    <div className="flex gap-4">
+    <div className="flex w-full gap-4">
       {/*  */}
-      <Card className="flex-1">
-        <InterviewTable
-          data={data}
-          onRowClick={openModal}
-          selectedDate={selectedDay}
-        />
+      <Card className="flex-1 overflow-hidden">
+        <ScrollArea className="h-full w-full rounded bg-background">
+          <InterviewTable
+            data={data}
+            onRowClick={openModal}
+            selectedDate={selectedDay}
+          />
+        </ScrollArea>
       </Card>
 
       <Card className="h-fit w-fit px-4">

@@ -36,9 +36,9 @@ function ProtectedPage() {
       <div className="container flex h-screen gap-4 overflow-hidden p-4">
         <Sidebar />
 
-        <ScrollArea className="w-full">
-          <Outlet />
-        </ScrollArea>
+        {/* <ScrollArea className="w-full"> */}
+        <Outlet />
+        {/* </ScrollArea> */}
       </div>
     </div>
   );

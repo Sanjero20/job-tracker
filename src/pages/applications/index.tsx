@@ -53,7 +53,7 @@ function ApplicationsPage() {
   });
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex w-full flex-col gap-2">
       {/* Utilities */}
       <div className="flex gap-4">
         {/* <AddApplcationModal /> */}
@@ -79,7 +79,7 @@ function ApplicationsPage() {
       </div>
 
       {/* Table */}
-      <ScrollArea className="h-[80vh] max-h-[625px] rounded bg-background shadow-lg">
+      <ScrollArea className="rounded bg-background shadow-lg">
         <ApplicationsTable
           data={data}
           filters={filters}
