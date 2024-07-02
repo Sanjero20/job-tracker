@@ -1,4 +1,4 @@
-import { FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 
@@ -7,11 +7,18 @@ import { Input } from "@/components/ui/input";
 import FormContainer from "@/components/form-container";
 
 import { registerAccount } from "@/services/auth.service";
+import { IAccountReg } from "@/types";
+
+const initialState: IAccountReg = {
+  first_name: "",
+  last_name: "",
+  email: "",
+  password: "",
+  cPassword: "",
+};
 
 function RegisterPage() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPass, setConfirmPass] = useState("");
+  const [data, setData] = useState(initialState);
 
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -19,12 +26,17 @@ function RegisterPage() {
   const [, setCookie] = useCookies();
   const navigate = useNavigate();
 
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setData({ ...data, [name]: value });
+  };
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
     setIsLoading(true);
 
-    const response = await registerAccount(email, password, confirmPass);
+    const response = await registerAccount(data);
     const { token, error } = response;
 
     if (token) {
@@ -42,28 +54,50 @@ function RegisterPage() {
       <FormContainer header="Create account">
         <form
           onSubmit={handleSubmit}
-          className="flex w-[350px] flex-col gap-2 bg-white"
+          className="flex w-[400px] flex-col gap-2 bg-white"
         >
+          <fieldset className="flex gap-2">
+            <Input
+              type="text"
+              name="first_name"
+              value={data.first_name}
+              onChange={handleChange}
+              placeholder="First Name"
+              required
+            />
+
+            <Input
+              type="text"
+              name="last_name"
+              value={data.last_name}
+              onChange={handleChange}
+              placeholder="Last Name (Optional)"
+            />
+          </fieldset>
+
           <Input
             type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            name="email"
+            value={data.email}
+            onChange={handleChange}
             placeholder="Email"
             required
           />
 
           <Input
             type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            name="password"
+            value={data.password}
+            onChange={handleChange}
             placeholder="Password"
             required
           />
 
           <Input
             type="password"
-            value={confirmPass}
-            onChange={(e) => setConfirmPass(e.target.value)}
+            name="cPassword"
+            value={data.cPassword}
+            onChange={handleChange}
             placeholder="Confirm password"
             required
           />

@@ -23,7 +23,7 @@ function UnprotectedPage() {
   if (isAuthenticated) return;
 
   return (
-    <div className="flex min-h-screen bg-light">
+    <div className="flex min-h-screen bg-light-2">
       <Outlet />
     </div>
   );

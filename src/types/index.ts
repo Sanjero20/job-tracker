@@ -1,3 +1,11 @@
+export interface IAccountReg {
+  first_name: string;
+  last_name: string;
+  email: string;
+  password: string;
+  cPassword: string;
+}
+
 export type ModalMode = "create" | "read" | "update" | "delete" | "";
 
 export interface IForm {

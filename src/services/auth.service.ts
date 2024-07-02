@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { IAccountReg } from "@/types";
 import { api } from "./config";
 
 export async function verifyToken() {
@@ -22,12 +23,10 @@ export async function loginAccount(email: string, password: string) {
   }
 }
 
-export async function registerAccount(
-  email: string,
-  password: string,
-  cPass: string,
-) {
-  if (password != cPass) {
+export async function registerAccount(data: IAccountReg) {
+  const { password, cPassword } = data;
+
+  if (password != cPassword) {
     return {
       token: null,
       error: "Password does not match",
@@ -35,7 +34,7 @@ export async function registerAccount(
   }
 
   try {
-    const response = await api.post("/auth/register", { email, password });
+    const response = await api.post("/auth/register", data);
     const { token } = await response.data;
     return { token, error: "" };
   } catch (error: any) {
