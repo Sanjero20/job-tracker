@@ -32,7 +32,7 @@ function DashboardPage() {
         </Card>
 
         {/*  */}
-        <Card className="col-span-10 flex justify-start p-4">
+        <Card className="col-span-10 flex min-h-48 justify-start p-4">
           <ApplicationsActivity />
         </Card>
       </div>

@@ -1,16 +1,16 @@
+import moment from "moment";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 
 import { Card } from "@/components/ui/card";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import CustomModal from "@/components/custom-modal";
 import InterviewTable from "./components/table/interview-table";
 import InterviewCalendar from "./components/interview-calendar";
 import InterviewScheduleForm from "./components/form";
-import CustomModal from "@/components/custom-modal";
 
 import { getOngoingApplications } from "@/services/interviews.service";
 import { IInterview } from "@/types";
-import moment from "moment";
-import { ScrollArea } from "@/components/ui/scroll-area";
 
 function InterviewPage() {
   const [selectedDay, setSelectedDay] = useState<Date | null>(null);
