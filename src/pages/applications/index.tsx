@@ -79,7 +79,7 @@ function ApplicationsPage() {
       </div>
 
       {/* Table */}
-      <ScrollArea className="rounded bg-background shadow-lg">
+      <ScrollArea className="h-full w-full rounded bg-background shadow-lg">
         <ApplicationsTable
           data={data}
           filters={filters}

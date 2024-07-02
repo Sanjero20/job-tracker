@@ -46,8 +46,7 @@ function ApplicationsTable({
           <TableHead className="w-48">Position</TableHead>
           <TableHead className="w-[20ch]">Price</TableHead>
           <TableHead>Setup</TableHead>
-          <TableHead>Date Applied</TableHead>
-          <TableHead>Job Posting</TableHead>
+          <TableHead className="w-[15ch]">Date Applied</TableHead>
           <TableHead className="w-48">Actions</TableHead>
         </TableRow>
       </TableHeader>
@@ -83,16 +82,6 @@ function ApplicationsTable({
 
               <TableCell>
                 {moment(application.application_date).format("MMM DD, YYYY")}
-              </TableCell>
-
-              <TableCell onClick={(e) => e.stopPropagation()}>
-                <a
-                  href={application.url}
-                  target="_blank"
-                  className="hover:underline"
-                >
-                  {application.site}
-                </a>
               </TableCell>
 
               {/* Actions */}
