@@ -36,7 +36,7 @@ function LogoutButton() {
         <DialogDescription>Are you sure you want to logout?</DialogDescription>
 
         <DialogFooter>
-          <DialogClose>
+          <DialogClose asChild>
             <Button variant="ghost">Cancel</Button>
           </DialogClose>
           <Button variant="destructive" onClick={handleLogout}>
