@@ -8,6 +8,7 @@ import UnprotectedPage from "@/layouts/unprotected";
 import DashboardFallbackPage from "@/pages/dashboard/fallback";
 import ApplicationFallbackPage from "@/pages/applications/fallback";
 import InterviewFallbackPage from "@/pages/interviews/fallback";
+import AccountFallbackPage from "@/pages/account/fallback";
 
 // Lazy loaded page
 const RegisterPage = lazy(() => import("@/pages/register"));
@@ -16,6 +17,7 @@ const LoginPage = lazy(() => import("@/pages/login"));
 const DashboardPage = lazy(() => import("@/pages/dashboard"));
 const ApplicationsPage = lazy(() => import("@/pages/applications"));
 const InterviewPage = lazy(() => import("@/pages/interviews"));
+const AccountPage = lazy(() => import("@/pages/account"));
 
 export const routes = createBrowserRouter([
   // Auth
@@ -68,6 +70,14 @@ export const routes = createBrowserRouter([
         element: (
           <Suspense fallback={<InterviewFallbackPage />}>
             <InterviewPage />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/account",
+        element: (
+          <Suspense fallback={<AccountFallbackPage />}>
+            <AccountPage />
           </Suspense>
         ),
       },
