@@ -1,28 +1,31 @@
 import { useState, useEffect } from "react";
 import { useNavigate, Outlet } from "react-router-dom";
 import { useCookies } from "react-cookie";
-import { verifyToken } from "@/services/auth.service";
+import { verifyAccount } from "@/services/auth.service";
 import Sidebar from "./sidebar";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { useAccount } from "@/stores/account";
 
 function ProtectedPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [, , removeCookie] = useCookies();
   const navigate = useNavigate();
+  const { setInfo, clearInfo } = useAccount();
 
   // Auth guard
   useEffect(() => {
     const verifyAccess = async () => {
-      const isValid = await verifyToken();
+      const { isLoggedIn, name, email } = await verifyAccount();
 
-      if (!isValid) {
+      if (isLoggedIn == false) {
         setIsAuthenticated(false);
         removeCookie("token");
         navigate("/login", { replace: true });
+        clearInfo();
         return;
       }
 
       setIsAuthenticated(true);
+      setInfo(name, email);
     };
 
     verifyAccess();
@@ -36,9 +39,7 @@ function ProtectedPage() {
       <div className="container flex h-screen gap-4 overflow-hidden p-4">
         <Sidebar />
 
-        {/* <ScrollArea className="w-full"> */}
         <Outlet />
-        {/* </ScrollArea> */}
       </div>
     </div>
   );

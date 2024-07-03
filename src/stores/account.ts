@@ -3,7 +3,7 @@ import { create } from "zustand";
 interface States {
   name: string;
   email: string;
-  setInfo: (name: string, email: "") => void;
+  setInfo: (name: string, email: string) => void;
   clearInfo: () => void;
 }
 

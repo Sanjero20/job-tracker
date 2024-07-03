@@ -2,12 +2,18 @@
 import { IAccountReg } from "@/types";
 import { api } from "./config";
 
-export async function verifyToken() {
+interface IVerify {
+  isLoggedIn: boolean;
+  name: string;
+  email: string;
+}
+
+export async function verifyAccount(): Promise<IVerify> {
   try {
     const response = await api.post("/auth/verify");
     return response.data;
   } catch (error) {
-    return false;
+    return { isLoggedIn: false, name: "", email: "" };
   }
 }
 

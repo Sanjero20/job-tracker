@@ -1,19 +1,24 @@
 import { useState, useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
-import { verifyToken } from "@/services/auth.service";
+import { verifyAccount } from "@/services/auth.service";
+import { useAccount } from "@/stores/account";
 
 function UnprotectedPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(true);
   const navigate = useNavigate();
+  const { setInfo, clearInfo } = useAccount();
 
   useEffect(() => {
     const verifyAccess = async () => {
-      const isValid = await verifyToken();
-      if (isValid) {
+      const { isLoggedIn, name, email } = await verifyAccount();
+
+      if (isLoggedIn) {
+        setInfo(name, email);
         navigate("/", { replace: true });
       }
 
       setIsAuthenticated(false);
+      clearInfo();
     };
 
     verifyAccess();

@@ -1,10 +1,15 @@
-import Navbar from "./navbar";
-import LogoutButton from "@/components/logout-btn";
-import { Card } from "@/components/ui/card";
-import { SquareUserRound } from "lucide-react";
 import { Link } from "react-router-dom";
+import { SquareUserRound } from "lucide-react";
+
+import { Card } from "@/components/ui/card";
+import Navbar from "./navbar";
+import LogoutButton from "@/layouts/logout-btn";
+
+import { useAccount } from "@/stores/account";
 
 function Sidebar() {
+  const { name, email } = useAccount();
+
   return (
     <aside className={"min-w-[250px] max-w-[250px] flex-1"}>
       <Card className="flex h-full w-full flex-col justify-between p-4">
@@ -17,7 +22,7 @@ function Sidebar() {
               className="flex w-full gap-4 rounded p-2 hover:bg-neutral-200"
             >
               <SquareUserRound />
-              <p>Account Name</p>
+              <p>{name}</p>
             </Link>
           </div>
 
