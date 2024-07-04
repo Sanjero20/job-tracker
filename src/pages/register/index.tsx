@@ -10,8 +10,7 @@ import { registerAccount } from "@/services/auth.service";
 import { IAccountReg } from "@/types";
 
 const initialState: IAccountReg = {
-  first_name: "",
-  last_name: "",
+  name: "",
   email: "",
   password: "",
   cPassword: "",
@@ -56,24 +55,15 @@ function RegisterPage() {
           onSubmit={handleSubmit}
           className="flex w-[400px] flex-col gap-2 bg-white"
         >
-          <fieldset className="flex gap-2">
-            <Input
-              type="text"
-              name="first_name"
-              value={data.first_name}
-              onChange={handleChange}
-              placeholder="First Name"
-              required
-            />
-
-            <Input
-              type="text"
-              name="last_name"
-              value={data.last_name}
-              onChange={handleChange}
-              placeholder="Last Name (Optional)"
-            />
-          </fieldset>
+          <Input
+            type="text"
+            name="name"
+            value={data.name}
+            onChange={handleChange}
+            placeholder="Name"
+            autoComplete="off"
+            required
+          />
 
           <Input
             type="email"
