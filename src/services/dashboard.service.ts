@@ -27,3 +27,13 @@ export async function getActivityCalendarData(): Promise<Activity[]> {
   const response = await api.get("/dashboard/activity");
   return await response.data;
 }
+
+interface IStatistics {
+  interview_rate: number;
+  rejection_rate: number;
+}
+
+export async function getStatistics(): Promise<IStatistics> {
+  const response = await api.get("/dashboard/statistics");
+  return await response.data;
+}

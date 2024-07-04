@@ -5,6 +5,7 @@ import ApplicationsOverview from "@/pages/dashboard/components/overview";
 import InterviewCalendar from "@/pages/dashboard/components/interview-calendar";
 import ApplicationsActivity from "@/pages/dashboard/components/application-activity";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import Statistics from "./components/statistics";
 
 function DashboardPage() {
   return (
@@ -23,7 +24,9 @@ function DashboardPage() {
           </div>
         </Card>
 
-        <Card className="col-span-2 row-span-2 p-4">Statistics</Card>
+        <div className="col-span-2 row-span-2 flex h-full flex-col gap-3">
+          <Statistics />
+        </div>
 
         {/* Interview Schedule Calendar */}
         <Card className="col-span-3 row-span-2 flex flex-col items-center justify-center p-4">
