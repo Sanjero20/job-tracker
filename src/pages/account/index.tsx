@@ -1,27 +1,14 @@
 import { useAccount } from "@/stores/account";
+import AccountData from "./components/account-data";
+import AccountInfo from "./components/account-info";
+import AccountSecurity from "./components/account-security";
 
 function AccountPage() {
-  const { name, email } = useAccount();
-
   return (
-    <div className="flex flex-col gap-4">
-      <section>
-        <h2>Account</h2>
-        <p>{name}</p>
-        <p>{email}</p>
-      </section>
-
-      <section>
-        <h2>Data</h2>
-        <p>Export data to csv</p>
-        <p>Delete all data</p>
-      </section>
-
-      <section>
-        <h2>Security</h2>
-        <p>Change password</p>
-        <p>Delete account</p>
-      </section>
+    <div className="flex flex-col gap-6">
+      <AccountInfo />
+      <AccountData />
+      <AccountSecurity />
     </div>
   );
 }
