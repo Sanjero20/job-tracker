@@ -27,7 +27,7 @@ function InterviewScheduleForm({ data, closeModal }: Props) {
     mutationFn: () => updateSchedule(values),
     onMutate: () => console.log(),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["ongoing-applications"] });
+      queryClient.invalidateQueries({ queryKey: ["interviews"] });
       closeModal();
     },
   });
