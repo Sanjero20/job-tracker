@@ -28,7 +28,7 @@ function ApplicationActivity() {
         blockSize={14}
         blockMargin={4}
         labels={{
-          totalCount: "{{count}} applications submitted in past year",
+          totalCount: "{{count}} applications were submitted in the past year",
         }}
         renderBlock={(block: BlockElement, activity: Activity) =>
           React.cloneElement(block, {

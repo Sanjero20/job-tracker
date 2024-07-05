@@ -46,7 +46,7 @@ function ApplicationsTable({
           <TableHead className="w-48">Position</TableHead>
           <TableHead className="w-[20ch]">Price</TableHead>
           <TableHead>Setup</TableHead>
-          <TableHead className="w-[15ch]">Date Applied</TableHead>
+          <TableHead className="w-[20ch]">Date Applied</TableHead>
           <TableHead className="w-48">Actions</TableHead>
         </TableRow>
       </TableHeader>
