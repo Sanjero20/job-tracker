@@ -39,7 +39,7 @@ function InterviewPage() {
   };
 
   const { data } = useQuery({
-    queryKey: ["ongoing-applications"],
+    queryKey: ["interviews"],
     queryFn: getOngoingApplications,
     initialData: [],
   });

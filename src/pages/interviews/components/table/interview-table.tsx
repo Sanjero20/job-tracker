@@ -1,3 +1,4 @@
+import { Input } from "@/components/ui/input";
 import {
   Table,
   TableBody,
@@ -8,6 +9,7 @@ import {
 } from "@/components/ui/table";
 import { IInterview } from "@/types";
 import moment from "moment";
+import InputCheckbox from "./checkbox";
 
 interface Props {
   data: IInterview[];
@@ -20,10 +22,11 @@ function InterviewTable({ data, onRowClick, selectedDate }: Props) {
     <Table className="relative w-full">
       <TableHeader className="sticky top-0 bg-white">
         <TableRow>
-          <TableHead>Company</TableHead>
+          <TableHead className="w-[15ch]">Status</TableHead>
+          <TableHead className="w-[25ch]">Company</TableHead>
           <TableHead>Role</TableHead>
-          <TableHead>Schedule</TableHead>
-          <TableHead>Link</TableHead>
+          <TableHead className="w-[15ch]">Schedule</TableHead>
+          <TableHead>Interviewed</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -34,6 +37,7 @@ function InterviewTable({ data, onRowClick, selectedDate }: Props) {
               onClick={() => onRowClick(item)}
               className={`${moment(selectedDate).format("YYYY-MM-DD") == item.schedule ? "bg-sky-500" : ""} cursor-pointer select-none`}
             >
+              <TableCell>{item.status}</TableCell>
               <TableCell>{item.company_name}</TableCell>
               <TableCell>{item.position}</TableCell>
               <TableCell>
@@ -41,8 +45,12 @@ function InterviewTable({ data, onRowClick, selectedDate }: Props) {
                   ? moment(item.schedule).format("MMM DD, YYYY")
                   : ""}
               </TableCell>
-              <TableCell className="w-[25ch] text-ellipsis">
-                {item.link}
+              <TableCell onClick={(e) => e.stopPropagation()}>
+                <InputCheckbox
+                  id={item.job_id}
+                  interviewed={item.interviewed}
+                  status={item.status}
+                />
               </TableCell>
             </TableRow>
           ))}

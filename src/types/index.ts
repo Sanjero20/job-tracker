@@ -28,8 +28,9 @@ export interface IApplication extends IForm {
 
 export interface IInterview {
   job_id: number;
+  status: string;
   company_name: string;
   position: string;
   schedule: string;
-  link: string;
+  interviewed: boolean;
 }

@@ -57,14 +57,6 @@ function InterviewScheduleForm({ data, closeModal }: Props) {
             onChange={handleChange}
             type="date"
           />
-
-          <Label>Meeting Link (Optional)</Label>
-          <Input
-            name="link"
-            value={values.link}
-            onChange={handleChange}
-            placeholder="link"
-          />
         </div>
       </form>
 
