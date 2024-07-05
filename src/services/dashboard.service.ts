@@ -37,3 +37,9 @@ export async function getStatistics(): Promise<IStatistics> {
   const response = await api.get("/dashboard/statistics");
   return await response.data;
 }
+
+export async function getInterviewDates(): Promise<Date[]> {
+  const response = await api.get("/dashboard/interview-dates");
+  const schedules = await response.data.map((date: string) => new Date(date));
+  return schedules;
+}

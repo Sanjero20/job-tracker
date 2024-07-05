@@ -1,13 +1,15 @@
-import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { Calendar } from "@/components/ui/calendar";
+import { getInterviewDates } from "@/services/dashboard.service";
 
 function InterviewCalendar() {
-  const [dates, setDates] = useState<Date[]>([
-    new Date(),
-    new Date("06-24-24"),
-  ]);
+  const { data } = useQuery({
+    queryKey: ["interview-calendar"],
+    queryFn: getInterviewDates,
+    initialData: [],
+  });
 
-  return <Calendar mode="multiple" modifiers={{ selected: dates }} />;
+  return <Calendar mode="multiple" modifiers={{ selected: data }} />;
 }
 
 export default InterviewCalendar;
