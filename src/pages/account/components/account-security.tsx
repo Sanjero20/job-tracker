@@ -1,7 +1,13 @@
+import { Dispatch, SetStateAction } from "react";
 import { Lock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-function AccountSecurity() {
+interface Props {
+  openModal: () => void;
+  setType: Dispatch<SetStateAction<"data" | "account">>;
+}
+
+function AccountSecurity({ openModal, setType }: Props) {
   return (
     <section>
       <div className="flex items-center gap-2 text-gray-600">
@@ -18,7 +24,15 @@ function AccountSecurity() {
           This action is permanent. Deleting your account will erase all your
           data.
         </p>
-        <Button className="w-40" variant={"destructive"}>
+
+        <Button
+          className="w-40"
+          variant={"destructive"}
+          onClick={() => {
+            setType("account");
+            openModal();
+          }}
+        >
           Delete Account
         </Button>
       </div>

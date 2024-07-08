@@ -1,7 +1,13 @@
 import { Database } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Dispatch, SetStateAction } from "react";
 
-function AccountData() {
+interface Props {
+  openModal: () => void;
+  setType: Dispatch<SetStateAction<"data" | "account">>;
+}
+
+function AccountData({ openModal, setType }: Props) {
   return (
     <section className="flex flex-col gap-2">
       <div className="flex items-center gap-2 text-gray-600">
@@ -13,7 +19,15 @@ function AccountData() {
 
       <div className="grid grid-cols-2 gap-4">
         <Button>Export to CSV</Button>
-        <Button variant={"destructive"}>Reset Data</Button>
+        <Button
+          variant={"destructive"}
+          onClick={() => {
+            setType("data");
+            openModal();
+          }}
+        >
+          Reset Data
+        </Button>
       </div>
       {/*  */}
     </section>
