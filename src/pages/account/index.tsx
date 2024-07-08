@@ -6,11 +6,16 @@ import AccountInfo from "./components/account-info";
 import AccountSecurity from "./components/account-security";
 import ConfirmModal from "@/components/confirm-modal";
 import { deleteUserAccount, deleteUserData } from "@/services/account.service";
+import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
 
 function AccountPage() {
   const [open, openModal, closeModal] = useModal();
   const [isLoading, setIsLoading] = useState(false);
   const [type, setType] = useState<"data" | "account">("account");
+
+  const [, , removeCookie] = useCookies();
+  const navigate = useNavigate();
 
   // Delete account
   const handleDeleteData = async () => {
@@ -32,13 +37,13 @@ function AccountPage() {
 
     const res = await deleteUserAccount();
 
-    if (res.status != 500) {
-      // Remove cookie
-      // Navigate to login page
-    }
-
     setIsLoading(false);
     closeModal();
+
+    if (res.status != 500) {
+      removeCookie("token");
+      navigate("/login", { replace: true });
+    }
   };
 
   return (
