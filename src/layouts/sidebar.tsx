@@ -8,7 +8,7 @@ import LogoutButton from "@/layouts/logout-btn";
 import { useAccount } from "@/stores/account";
 
 function Sidebar() {
-  const { name, email } = useAccount();
+  const { name } = useAccount();
 
   return (
     <aside className={"min-w-[250px] max-w-[250px] flex-1"}>
