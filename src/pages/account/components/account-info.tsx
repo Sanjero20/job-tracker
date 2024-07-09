@@ -10,6 +10,7 @@ import { updateUserInfo } from "@/services/account.service";
 function AccountInfo() {
   const { name, email, setInfo } = useAccount();
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
   const [values, setValues] = useState({
     name,
     email,
@@ -22,21 +23,23 @@ function AccountInfo() {
 
   const resetChanges = () => {
     setValues({ name, email });
+    setError("");
   };
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-
     setIsLoading(true);
 
-    const response = await updateUserInfo(values);
-    const { name, email } = await response;
-
-    if (response) {
+    try {
+      const response = await updateUserInfo(values);
+      const { name, email } = await response.data;
       setInfo(name, email);
+    } catch (error: any) {
+      const message = error.response.data.message;
+      setError(message);
+    } finally {
+      setIsLoading(false);
     }
-
-    setIsLoading(false);
   };
 
   return (
@@ -64,6 +67,8 @@ function AccountInfo() {
           onChange={handleChange}
           required
         />
+
+        {error && <p className="text-sm text-destructive">{error}</p>}
 
         {values.email != email || values.name != name ? (
           <div className="grid grid-cols-2 gap-2">

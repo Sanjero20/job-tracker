@@ -17,5 +17,5 @@ interface IUserInfo {
 
 export async function updateUserInfo(data: IUserInfo) {
   const response = await api.put("/accounts/user", data);
-  return await response.data;
+  return response;
 }
