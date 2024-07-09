@@ -61,7 +61,7 @@ function AccountPage() {
         description={
           type == "data"
             ? "Are you sure you want to delete all of your data?"
-            : "Are you sure you want to delete your account?"
+            : "This action is permanent. Deleting your account will erase all your data. Are you sure you want to delete your account?"
         }
         deleteFn={type == "account" ? handleDeleteAccount : handleDeleteData}
         isLoading={isLoading}

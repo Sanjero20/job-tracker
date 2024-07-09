@@ -1,7 +1,27 @@
+import { ChangeEvent, useState } from "react";
 import { SquareUserRound } from "lucide-react";
+
 import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+
+import { useAccount } from "@/stores/account";
 
 function AccountInfo() {
+  const { name, email } = useAccount();
+  const [values, setValues] = useState({
+    name,
+    email,
+  });
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setValues({ ...values, [name]: value });
+  };
+
+  const resetChanges = () => {
+    setValues({ name, email });
+  };
+
   return (
     <section className="">
       <div className="mb-2 flex items-center gap-2 text-gray-600">
@@ -10,8 +30,36 @@ function AccountInfo() {
       </div>
 
       <form className="flex flex-col gap-2">
-        <Input type="text" placeholder="Name" />
-        <Input type="text" placeholder="Email" />
+        <Input
+          type="text"
+          placeholder="Name"
+          name="name"
+          value={values.name}
+          onChange={handleChange}
+          required
+        />
+
+        <Input
+          type="email"
+          placeholder="Email"
+          name="email"
+          value={values.email}
+          onChange={handleChange}
+          required
+        />
+
+        {values.email != email || values.name != name ? (
+          <div className="grid grid-cols-2 gap-2">
+            <Button type="button" variant={"outline"} onClick={resetChanges}>
+              Cancel
+            </Button>
+            <Button type="submit" className="w-40">
+              Save Changes
+            </Button>
+          </div>
+        ) : (
+          <></>
+        )}
       </form>
     </section>
   );

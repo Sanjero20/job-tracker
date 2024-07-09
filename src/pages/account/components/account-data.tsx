@@ -17,19 +17,15 @@ function AccountData({ openModal, setType }: Props) {
 
       {/*  */}
 
-      <div className="grid grid-cols-2 gap-4">
-        <Button>Export to CSV</Button>
-        <Button
-          variant={"destructive"}
-          onClick={() => {
-            setType("data");
-            openModal();
-          }}
-        >
-          Reset Data
-        </Button>
-      </div>
-      {/*  */}
+      <Button
+        variant={"destructive-outline"}
+        onClick={() => {
+          setType("data");
+          openModal();
+        }}
+      >
+        Reset Data
+      </Button>
     </section>
   );
 }
