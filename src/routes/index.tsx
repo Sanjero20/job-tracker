@@ -9,6 +9,7 @@ import DashboardFallbackPage from "@/pages/dashboard/fallback";
 import ApplicationFallbackPage from "@/pages/applications/fallback";
 import InterviewFallbackPage from "@/pages/interviews/fallback";
 import AccountFallbackPage from "@/pages/account/fallback";
+import NotFoundPage from "@/pages/not-found";
 
 // Lazy loaded page
 const RegisterPage = lazy(() => import("@/pages/register"));
@@ -82,5 +83,10 @@ export const routes = createBrowserRouter([
         ),
       },
     ],
+  },
+
+  {
+    path: "*",
+    element: <NotFoundPage />,
   },
 ]);
