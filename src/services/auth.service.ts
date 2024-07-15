@@ -21,11 +21,15 @@ export async function loginAccount(email: string, password: string) {
   try {
     const response = await api.post("/auth/login", { email, password });
     const { token } = await response.data;
-
     return { token, error: "" };
   } catch (error: any) {
-    const { message } = error.response.data;
-    return { token: null, error: message };
+    let errorMsg = "Something went wrong";
+
+    if (error.response) {
+      errorMsg = error.response.data.message;
+    }
+
+    return { token: null, error: errorMsg };
   }
 }
 
