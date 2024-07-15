@@ -37,7 +37,7 @@ cd ./job_tracker
 inside the job_tracker directory, clone this repo for the front end and rename it to client
 
 ```bash
-git@github.com:Sanjero20/job-tracker.git
+git clone git@github.com:Sanjero20/job-tracker.git
 mv job-tracker ./client
 cd ./client
 ```
